@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Risk Seeker</string>
+    <string name="inicio_sesion">Iniciar Sesión</string>
+    <string name="invitado">Entrar como invitado</string>
+    <string name="registro">Registrar</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="Permiso_Ubicacion_concedido">La aplicación esta utilizando su ubicación</string>
+    <string name="Permiso_Ubicacion_denegado">No se concedio el permiso para la ubicación</string>
+    <string name="activar">Activar Ubicación</string>
+    <string name="mensaje_ubicacion">Debe activar la ubicación para continuar</string>
+    <string name="boton_activar">activar</string>
+    <string name="boton_noactivar">no activar</string>
+    <string name="marcador">Tu</string>
+</resources>

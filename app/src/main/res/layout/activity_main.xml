@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/nameapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:text="@string/app_name" />
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="245dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:contentDescription="Logo risk seeker"
+                android:scaleType="centerInside"
+                android:src="@drawable/logo" />
+
+            <Button
+                android:id="@+id/usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationY="60dp"
+                android:translationX="30dp"
+                android:text="Nombre Usuario"
+                android:onClick="CargarMapa"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/inicio_sesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/inicio_sesion"
+                />
+            <Button
+                android:id="@+id/invitado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invitado"
+                android:enabled="true"
+                android:onClick="CargarMapa"
+                />
+            <Button
+                android:id="@+id/registro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/registro"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
