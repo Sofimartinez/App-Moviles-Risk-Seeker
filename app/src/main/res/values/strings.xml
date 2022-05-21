@@ -11,4 +11,7 @@
     <string name="boton_activar">activar</string>
     <string name="boton_noactivar">no activar</string>
     <string name="marcador">Tu</string>
+    <string name="titulo_reportes">Reportes</string>
+    <string name="tipo_reporte">Tipo de reporte:</string>
+    <string name="Información">Información del reporte:</string>
 </resources>

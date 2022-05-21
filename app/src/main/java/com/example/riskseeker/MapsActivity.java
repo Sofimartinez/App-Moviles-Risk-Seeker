@@ -1,5 +1,6 @@
 package com.example.riskseeker;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
@@ -12,7 +13,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -20,16 +20,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.riskseeker.databinding.ActivityMapsBinding;
 
-
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap map;
     private ActivityMapsBinding binding;
     private FusedLocationProviderClient fusedLocationClient;
+    private UiSettings mUiSettings;
+    private Marker marcador;
     public LocationManager locationManager;
     public String provider;
     double latitud;
@@ -123,7 +127,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng ubicacion = new LatLng(latitud, longitud);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        map.addMarker(new MarkerOptions().position(ubicacion).title(String.valueOf(R.string.marcador)));
+        marcador = googleMap.addMarker(new MarkerOptions()
+                .position(ubicacion)
+                .title("Tú").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+
+        googleMap.setOnMarkerClickListener(this);
         map.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
+        map.moveCamera(CameraUpdateFactory.zoomTo(15));
+
+        mUiSettings = map.getUiSettings();
+        mUiSettings.setZoomControlsEnabled(true);
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        if(marker.equals(marcador)){
+            Intent cargar_reportes = new Intent(getApplicationContext(),ReporteActivity.class);
+            startActivity(cargar_reportes);
+        }
+        return false;
     }
 }
