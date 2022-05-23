@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:translationY="60dp"
                 android:translationX="30dp"
+                android:onClick="Formulario"
                 android:text="Nombre Usuario"/>
 
         </LinearLayout>
@@ -72,7 +73,7 @@
                 android:id="@+id/registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/registro"/>
+                android:text="@string/registro" />
 
         </LinearLayout>
 

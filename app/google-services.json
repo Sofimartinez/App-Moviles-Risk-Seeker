@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "507608594023",
+    "firebase_url": "https://risk-seeker-default-rtdb.firebaseio.com",
+    "project_id": "risk-seeker",
+    "storage_bucket": "risk-seeker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507608594023:android:24c54cfa19676fe4cd06c2",
+        "android_client_info": {
+          "package_name": "com.example.riskseeker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507608594023-tl0itv7m92a34v64il8c5nks178r1o7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.riskseeker",
+            "certificate_hash": "8b2ea5abf6f7d4a1e6ec5dc3a0cfa6c63554e1ac"
+          }
+        },
+        {
+          "client_id": "507608594023-3lc0hfchq0dn4533bb9cac23ab825q27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1ukNuO4uBn--pO99-xOZfvHsE5lUtL5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507608594023-3lc0hfchq0dn4533bb9cac23ab825q27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

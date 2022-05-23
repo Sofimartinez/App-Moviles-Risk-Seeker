@@ -5,9 +5,9 @@ public class Reporte {
     private String nombre;
     private String fecha;
     private String inf_reporte;
-    private String fotos;
     private int foto_perfil;
     private String tipo;
+    private String fotos;
 
     public void reporte(){
     }

@@ -10,8 +10,13 @@
     <string name="mensaje_ubicacion">Debe activar la ubicación para continuar</string>
     <string name="boton_activar">activar</string>
     <string name="boton_noactivar">no activar</string>
-    <string name="marcador">Tu</string>
     <string name="titulo_reportes">Reportes</string>
-    <string name="tipo_reporte">Tipo de reporte:</string>
+    <string name="tipo_reporte">Tipo de reporte</string>
     <string name="Información">Información del reporte:</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="descripcion">Ingrese una descripción del reporte</string>
+    <string name="reporte_anonimo">Reporte anónimo</string>
+    <string name="agregar_imagen">Agregar imagen</string>
+    <string name="Seleccion_tipo">Selecciona una tipo de reporte</string>
+    <string name="requerido">Requerido</string>
 </resources>

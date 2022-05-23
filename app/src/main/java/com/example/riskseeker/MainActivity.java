@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    public void Formulario(View view) {
+        Intent cargarMapa = new Intent(getApplicationContext(),FormularioReporteActivity.class);
+        startActivity(cargarMapa);
+    }
 }
