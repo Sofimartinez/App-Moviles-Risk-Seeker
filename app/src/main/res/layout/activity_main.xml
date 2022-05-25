@@ -61,7 +61,8 @@
                 android:id="@+id/inicio_sesion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/inicio_sesion"/>
+                android:text="@string/inicio_sesion"
+                android:onClick="iniciarSesion"/>
             <Button
                 android:id="@+id/invitado"
                 android:layout_width="wrap_content"
@@ -73,7 +74,8 @@
                 android:id="@+id/registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/registro" />
+                android:text="@string/registro"
+                android:onClick="Registrar"/>
 
         </LinearLayout>
 

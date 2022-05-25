@@ -1,5 +1,7 @@
 package com.example.riskseeker;
 
+import android.net.Uri;
+
 public class InfoReporte {
     private String idReporte;
     private String fecha;
@@ -9,6 +11,7 @@ public class InfoReporte {
     private double latitud;
     private double longitud;
     private String tipo;
+    private Uri foto;
     private String idUsuario;
 
     public InfoReporte() {
@@ -85,6 +88,8 @@ public class InfoReporte {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+
 
     @Override
     public String toString() {

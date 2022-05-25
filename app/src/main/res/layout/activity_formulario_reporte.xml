@@ -99,6 +99,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/Imageids"
             android:layout_alignStart="@+id/agregarImagen"
             android:layout_alignTop="@+id/agregarImagen"
             android:layout_marginStart="15dp"
@@ -106,6 +107,96 @@
             android:elevation="20dp"
             android:src="@drawable/ic_baseline_add_photo_alternate_24" />
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/idAgregarImagen1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:backgroundTint="@color/white"
+            android:onClick="CargarImagenes"
+            />
+        <Button
+            android:id="@+id/idAgregarImagen2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="70dp"
+            android:backgroundTint="@color/white"
+            android:onClick="CargarImagenes"
+            />
+        <Button
+            android:id="@+id/idAgregarImagen3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="140dp"
+            android:backgroundTint="@color/white"
+            android:onClick="CargarImagenes"
+            />
+        <Button
+            android:id="@+id/idAgregarImagen4"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="210dp"
+            android:backgroundTint="@color/white"
+            android:onClick="CargarImagenes"
+            />
+        <Button
+            android:id="@+id/idAgregarImagen5"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="280dp"
+            android:backgroundTint="@color/white"
+            android:onClick="CargarImagenes"
+            />
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/Imageid1"
+            android:layout_alignStart="@+id/agregarImagen1"
+            android:layout_alignTop="@+id/agregarImagen1"
+            android:elevation="20dp"
+            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/Imageid2"
+            android:layout_alignStart="@+id/agregarImagen"
+            android:layout_alignTop="@+id/agregarImagen"
+            android:layout_marginStart="70dp"
+            android:elevation="20dp"
+            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/Imageid3"
+            android:layout_alignStart="@+id/agregarImagen"
+            android:layout_alignTop="@+id/agregarImagen"
+            android:layout_marginStart="140dp"
+            android:elevation="20dp"
+            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/Imageid4"
+            android:layout_alignStart="@+id/agregarImagen"
+            android:layout_alignTop="@+id/agregarImagen"
+            android:layout_marginStart="210dp"
+            android:elevation="20dp"
+            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/Imageid5"
+            android:layout_alignStart="@+id/agregarImagen"
+            android:layout_alignTop="@+id/agregarImagen"
+            android:layout_marginStart="280dp"
+            android:elevation="20dp"
+            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+
+    </RelativeLayout>
+
 
     <Button
         android:layout_width="wrap_content"

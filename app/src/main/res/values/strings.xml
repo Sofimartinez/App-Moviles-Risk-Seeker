@@ -19,4 +19,7 @@
     <string name="agregar_imagen">Agregar imagen</string>
     <string name="Seleccion_tipo">Selecciona una tipo de reporte</string>
     <string name="requerido">Requerido</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="IniciarSesión">Iniciar Sesión</string>
 </resources>
