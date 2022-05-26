@@ -21,5 +21,8 @@
     <string name="requerido">Requerido</string>
     <string name="usuario">Usuario</string>
     <string name="contraseña">Contraseña</string>
+    <string name="contraseñaConfirmacion">Confirmación Contraseña</string>
     <string name="IniciarSesión">Iniciar Sesión</string>
+    <string name="Registrarse">Registrarse</string>
+    <string name="correo">Correo</string>
 </resources>

@@ -65,4 +65,14 @@ public class MainActivity extends AppCompatActivity {
         Intent cargarMapa = new Intent(getApplicationContext(),FormularioReporteActivity.class);
         startActivity(cargarMapa);
     }
+
+    public void iniciarSesion(View view) {
+        Intent i = new Intent(getApplicationContext(), IniciarSesionActivity.class);
+        startActivity(i);
+    }
+
+    public void Registrar(View view) {
+        Intent i = new Intent(getApplicationContext(), RegistroActivity.class);
+        startActivity(i);
+    }
 }

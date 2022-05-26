@@ -12,10 +12,10 @@
         android:layout_margin="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:endIconMode="clear_text"
-        android:hint="@string/usuario">
+        android:hint="@string/correo">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/idnombre"
+        android:id="@+id/idcorreologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -30,9 +30,10 @@
         android:hint="@string/contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/idcontraseña"
+            android:id="@+id/idcontraseñalogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/idlogin"
         android:text="@string/IniciarSesión"
-        android:onClick="IniciarSesión"/>
+        android:onClick="IniciarSession"/>
 
 
 </LinearLayout>
