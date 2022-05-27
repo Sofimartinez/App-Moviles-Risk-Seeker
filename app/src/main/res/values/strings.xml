@@ -25,4 +25,6 @@
     <string name="IniciarSesión">Iniciar Sesión</string>
     <string name="Registrarse">Registrarse</string>
     <string name="correo">Correo</string>
+    <string name="contraminimo">La contraseña mínimo de mínimo 6 caracteres</string>
+    <string name="correoexample">example.correo@gmail.com</string>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_margin="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:endIconMode="clear_text"
-        android:hint="@string/correo">
+        android:hint="@string/correoexample">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idcorreo"
