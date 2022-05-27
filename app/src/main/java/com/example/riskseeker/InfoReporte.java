@@ -13,6 +13,7 @@ public class InfoReporte {
     private String tipo;
     private Uri foto;
     private String idUsuario;
+    private int cantidadImg;
 
     public InfoReporte() {
     }
@@ -89,10 +90,18 @@ public class InfoReporte {
         this.tipo = tipo;
     }
 
+    public int getCantidadImg() {
+        return cantidadImg;
+    }
 
+    public void setCantidadImg(int cantidadImg) {
+        this.cantidadImg = cantidadImg;
+    }
 
     @Override
     public String toString() {
         return descripcion;
     }
+
+
 }

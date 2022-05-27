@@ -1,12 +1,10 @@
 package com.example.riskseeker;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,10 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
@@ -28,61 +30,61 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
 public class FormularioReporteActivity extends AppCompatActivity {
-    public final static String LOGTAG = "Pruebas imagenes";
 
-    EditText ubicacion, descripcion;
-    AutoCompleteTextView tipo;
-    ImageView imagen;
-    boolean anonimo;
-    Switch switchE;
-    boolean imagenCargada = false;
-    private ArrayList<Uri> imageness;
-    Uri image;
-    ActivityResultLauncher<String> mTakePhoto;
+    private int SELECCIONAR_IMAGEN = 1;
 
+    private EditText ubicacion, descripcion;
+    private AutoCompleteTextView tipo;
+    private Switch switchE;
+    private boolean anonimo;
+    private ImageButton botonAnt, botonSig;
+    private ImageSwitcher imagenIS;
+    private ArrayList<Uri> listaimagenes;
+    private Uri imagenUri;
+    private int posicion;
+    private int contadorImg=0;
 
-    private static final String[] lista_tipo = new String[]{"Tipo 1","Tipo 2","Tipo 3","Tipo 4","Tipo 5","Tipo 6","Tipo 7","Tipo 8"};
+    private static final String[] lista_tipo = new String[]{"Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4", "Tipo 5", "Tipo 6", "Tipo 7", "Tipo 8"};
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference mStorage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_reporte);
 
+        inicializarFirebase();
+
         ubicacion = findViewById(R.id.idUbicacion);
         descripcion = findViewById(R.id.idDescripcion);
         tipo = findViewById(R.id.idSelec_tipo);
         switchE = findViewById(R.id.idAnonimo);
-        imageness = new ArrayList<Uri>();
 
-        mTakePhoto = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri result) {
-                        image = result;
-                        imageness.add(image);
-                        imagen.setImageURI(result);
-                        imagenCargada = true;
+        //Imagenes
+        botonSig = findViewById(R.id.boton_siguiente);
+        botonAnt = findViewById(R.id.boton_anterior);
+        imagenIS = findViewById(R.id.imagenes);
 
-                    }
-                }
-        );
+        //Ocultar botones mientras no se haya seleccionado una imagen
+        botonSig.setVisibility(View.INVISIBLE);
+        botonAnt.setVisibility(View.INVISIBLE);
+
+        listaimagenes = new ArrayList<Uri>();
+
+        confImageSwitcher();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_tipo);
         tipo.setAdapter(adapter);
 
-        inicializarFirebase();
     }
 
     private void inicializarFirebase() {
@@ -93,26 +95,39 @@ public class FormularioReporteActivity extends AppCompatActivity {
     }
 
     public void CargarImagenes(View view) {
-        Intent cargar = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        cargar.setType("image/");
-        String resID =  getResources().getResourceEntryName(view.getId());
-
-        // No encontre manera para hacer el acceso dinamico.
-        if(resID.equals("idAgregarImagen1")){
-            imagen = (ImageView) findViewById(R.id.Imageid1);
-        }else if(resID.equals("idAgregarImagen2")){
-            imagen = (ImageView) findViewById(R.id.Imageid2);
-        }else if (resID.equals("idAgregarImagen3")){
-            imagen = (ImageView) findViewById(R.id.Imageid3);
-        }else if (resID.equals("idAgregarImagen4")){
-            imagen = (ImageView) findViewById(R.id.Imageid4);
+        if(contadorImg < 5){
+            Intent selec_imagen = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            selec_imagen.setType("image/");
+            startActivityForResult(selec_imagen.createChooser(selec_imagen,"Seleccione una aplicación"),SELECCIONAR_IMAGEN);
         }else{
-            imagen = (ImageView) findViewById(R.id.Imageid5);
+            Toast.makeText(this,"Se ha alcanzado el máximo de imagenes",Toast.LENGTH_LONG).show();
         }
-        mTakePhoto.launch("image/");
 
     }
 
+    @Override
+    protected void onActivityResult(int resquestCode, int resultCode, Intent data) {
+        super.onActivityResult(resquestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            imagenUri = data.getData();
+            listaimagenes.add(imagenUri);
+        }
+        //Agregar primera imagen por defecto al ImageSwitcher
+        botonSig.setVisibility(View.VISIBLE);
+        botonAnt.setVisibility(View.VISIBLE);
+        imagenIS.setImageURI(listaimagenes.get(0));
+        contadorImg ++;
+        posicion = 0;
+    }
+
+    private void confImageSwitcher(){
+        imagenIS.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                return new ImageView(getApplicationContext());
+            }
+        });
+    }
 
 
     public void AgregarReporte(View view) {
@@ -136,6 +151,7 @@ public class FormularioReporteActivity extends AppCompatActivity {
             reporte.setAnonimo(anonimo);
             reporte.setUbicacion(ubic_reporte);
             reporte.setTipo(tipo_reporte);
+            reporte.setCantidadImg(contadorImg);
 
             //Falta obtener la latitud de la ubicacion entregada
             reporte.setLatitud(-33.0503315);
@@ -144,26 +160,24 @@ public class FormularioReporteActivity extends AppCompatActivity {
             //Falta obtener el id del usuario (rut)
             reporte.setIdUsuario("1");
 
-
             databaseReference.child("Reporte").child(reporte.getIdReporte()).setValue(reporte);
-            if(imagenCargada){
-                subirFoto(imageness.size());
+
+            if(contadorImg > 0){
+                subirFoto(listaimagenes.size());
             }
             Toast.makeText(this,"Agregado",Toast.LENGTH_LONG).show();
             Limpiar();
         }
     }
 
-    private void subirFoto(int i){
-        if(i>0){
-            StorageReference path = mStorage.child("Images"+imageness.get(i-1).getLastPathSegment());
-            path.putFile(imageness.get(i-1)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    subirFoto(i-1);
-                }
-            });
-        }
+    private void subirFoto(int posicionImg){
+        StorageReference path = mStorage.child("Images"+listaimagenes.get(posicionImg-1).getLastPathSegment());
+        path.putFile(listaimagenes.get(posicionImg-1)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                subirFoto(posicionImg-1);
+            }
+        });
 
     }
 
@@ -173,7 +187,9 @@ public class FormularioReporteActivity extends AppCompatActivity {
         descripcion.setText("");
         tipo.setText("");
         switchE.setChecked(false);
-        imagenCargada = false;
+        listaimagenes.clear();
+        botonSig.setVisibility(View.INVISIBLE);
+        botonAnt.setVisibility(View.INVISIBLE);
     }
 
     private void Validacion(String desc_reporte, String ubic_reporte, String tipo_reporte) {
@@ -195,6 +211,20 @@ public class FormularioReporteActivity extends AppCompatActivity {
             }else{
                 anonimo=false;
             }
+        }
+    }
+
+    public void BotonSiguiente(View view) {
+        if(posicion < listaimagenes.size()-1){
+            posicion++;
+            imagenIS.setImageURI(listaimagenes.get(posicion));
+        }
+    }
+
+    public void BotonAnterior(View view) {
+        if(posicion > 0){
+            posicion--;
+            imagenIS.setImageURI(listaimagenes.get(posicion));
         }
     }
 }

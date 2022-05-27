@@ -76,19 +76,17 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes"
-            />
+            android:onClick="CargarImagenes" />
 
         <TextView
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignTop="@+id/agregarImagen"
             android:layout_alignBottom="@+id/agregarImagen"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="55dp"
             android:layout_marginTop="19dp"
             android:elevation="20dp"
@@ -97,111 +95,56 @@
             android:textSize="16sp" />
 
         <ImageView
+            android:id="@+id/Imageids"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Imageids"
             android:layout_alignStart="@+id/agregarImagen"
             android:layout_alignTop="@+id/agregarImagen"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="19dp"
             android:elevation="20dp"
+            android:onClick="CargarImagenes"
             android:src="@drawable/ic_baseline_add_photo_alternate_24" />
     </RelativeLayout>
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/idAgregarImagen1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes"
-            />
-        <Button
-            android:id="@+id/idAgregarImagen2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="70dp"
-            android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes"
-            />
-        <Button
-            android:id="@+id/idAgregarImagen3"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="140dp"
-            android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes"
-            />
-        <Button
-            android:id="@+id/idAgregarImagen4"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="210dp"
-            android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes"
-            />
-        <Button
-            android:id="@+id/idAgregarImagen5"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="280dp"
-            android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes"
-            />
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:id="@+id/Imageid1"
-            android:layout_alignStart="@+id/agregarImagen1"
-            android:layout_alignTop="@+id/agregarImagen1"
-            android:elevation="20dp"
-            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:id="@+id/Imageid2"
-            android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignTop="@+id/agregarImagen"
-            android:layout_marginStart="70dp"
-            android:elevation="20dp"
-            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:id="@+id/Imageid3"
-            android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignTop="@+id/agregarImagen"
-            android:layout_marginStart="140dp"
-            android:elevation="20dp"
-            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:id="@+id/Imageid4"
-            android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignTop="@+id/agregarImagen"
-            android:layout_marginStart="210dp"
-            android:elevation="20dp"
-            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:id="@+id/Imageid5"
-            android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignTop="@+id/agregarImagen"
-            android:layout_marginStart="280dp"
-            android:elevation="20dp"
-            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
-    </RelativeLayout>
+        <ImageButton
+            android:id="@+id/boton_anterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:onClick="BotonAnterior"
+            android:src="@drawable/ic_baseline_navigate_before_24" />
 
+        <ImageSwitcher
+            android:id="@+id/imagenes"
+            android:layout_width="250dp"
+            android:layout_height="250dp"/>
+
+        <ImageButton
+            android:id="@+id/boton_siguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            android:onClick="BotonSiguiente"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
 
     <Button
+        android:id="@+id/idAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/idAgregar"
+        android:layout_margin="10dp"
+        android:onClick="AgregarReporte"
         android:text="Agregar"
-        android:onClick="AgregarReporte"/>
+        android:layout_gravity="right"/>
+
 </LinearLayout>
