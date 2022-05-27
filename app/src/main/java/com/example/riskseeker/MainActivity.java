@@ -8,19 +8,75 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISO_UBICACION = 1;
+    Button usuario;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        usuario = findViewById(R.id.usuario);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //FirebaseAuth.getInstance().signOut();
+        //Obtener el usuario que tiene la sesión activa
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            //Sesion iniciada
+            usuario.setVisibility(View.INVISIBLE);
+            String email = user.getEmail();
+            String uid = user.getUid();
+            databaseReference = FirebaseDatabase.getInstance().getReference("Usuario")
+                    .child(uid);
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        String nombre = snapshot.child("nombre").getValue().toString();
+                        String apellido = snapshot.child("apellido").getValue().toString();
+                        usuario.setVisibility(View.VISIBLE);
+                        usuario.setText(nombre + " " + apellido);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            //usuario.setText("Sesion iniciada");
+        } else {
+            // Sesión no iniciada
+            usuario.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
     public void CargarMapa(View view) {
         verificarPermiso();
