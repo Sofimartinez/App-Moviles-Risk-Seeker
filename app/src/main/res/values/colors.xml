@@ -16,5 +16,6 @@
     <color name="primario_claro">#F8CEAF</color>
     <color name="secundario">#51BC10</color>
     <color name="secundario_variante">#8CF050</color>
+    <color name="mainbackground">#80F6DF8B</color>
 
 </resources>

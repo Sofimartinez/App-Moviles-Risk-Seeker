@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="@color/mainbackground">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,9 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:fontFamily="@font/smartchameleon"
                 android:layout_margin="20dp"
                 android:gravity="center"
-                android:textSize="30sp"
+                android:textSize="50sp"
                 android:text="@string/app_name"
                 android:textColor="@color/black"/>
 
