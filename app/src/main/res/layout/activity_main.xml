@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:translationY="60dp"
                 android:translationX="30dp"
-                android:onClick="Formulario"
+                android:onClick="CargarMapa"
                 android:text="Nombre Usuario"/>
 
         </LinearLayout>
@@ -65,18 +65,18 @@
                 android:text="@string/inicio_sesion"
                 android:onClick="iniciarSesion"/>
             <Button
+                android:id="@+id/registro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/registro"
+                android:onClick="Registrar"/>
+            <Button
                 android:id="@+id/invitado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/invitado"
                 android:enabled="true"
                 android:onClick="CargarMapa" />
-            <Button
-                android:id="@+id/registro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/registro"
-                android:onClick="Registrar"/>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,6 @@
         android:layout_height="match_parent"
         map:cameraZoom="13"
         map:uiRotateGestures="true"
-        map:uiZoomControls="true"
         tools:context=".MapsActivity" />
 
     <RelativeLayout
@@ -27,12 +27,12 @@
         android:elevation="10dp">
 
         <ImageView
+            android:id="@+id/ic_magnify"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/ic_magnify"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_magnify"/>
+            android:src="@drawable/ic_magnify" />
 
         <EditText
             android:id="@+id/input_search"
@@ -47,5 +47,46 @@
             android:textSize="20sp"
             android:translationX="10dp" />
     </RelativeLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/menu_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:fab_addButtonColorNormal="@color/secundario"
+        app:fab_addButtonColorPressed="@color/secundario_variante">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/primario"
+            app:fab_addButtonColorPressed="@color/primario_oscuro"            app:fab_icon="@drawable/ic_baseline_person_24"
+            android:layout_margin="5dp"
+            app:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/reporte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/primario"
+            app:fab_addButtonColorPressed="@color/primario_oscuro"
+            app:fab_icon="@drawable/ic_baseline_campaign_24"
+            app:fab_size="mini"
+            android:onClick="Formulario"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/primario"
+            app:fab_addButtonColorPressed="@color/primario_oscuro"
+            app:fab_icon="@drawable/ic_baseline_search_24"
+            app:fab_size="mini"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </RelativeLayout>

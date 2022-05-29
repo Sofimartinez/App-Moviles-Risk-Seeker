@@ -17,10 +17,12 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.riskseeker.databinding.ActivityMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,7 +34,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.riskseeker.databinding.ActivityMapsBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //SearchText = (EditText) findViewById(R.id.input_search);
+        //SearchText = findViewById(R.id.input_search);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -151,7 +152,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
 
         mUiSettings = map.getUiSettings();
-        mUiSettings.setZoomControlsEnabled(true);
 
        // searchLocalitation();
     }
@@ -163,6 +163,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             startActivity(cargar_reportes);
         }
         return false;
+    }
+
+    public void Formulario(View view) {
+        Intent cargarMapa = new Intent(getApplicationContext(),FormularioReporteActivity.class);
+        startActivity(cargarMapa);
     }
 
     /*
