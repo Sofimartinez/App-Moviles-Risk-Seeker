@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,9 +32,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class FormularioReporteActivity extends AppCompatActivity {
@@ -49,6 +53,8 @@ public class FormularioReporteActivity extends AppCompatActivity {
     private Uri imagenUri;
     private int posicion;
     private int contadorImg=0;
+
+    private int[] CC;
 
     private static final String[] lista_tipo = new String[]{"Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4", "Tipo 5", "Tipo 6", "Tipo 7", "Tipo 8"};
 
@@ -153,10 +159,31 @@ public class FormularioReporteActivity extends AppCompatActivity {
             reporte.setTipo(tipo_reporte);
             reporte.setCantidadImg(contadorImg);
 
+
+            String TAG = "GeolocateReg";
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addressList;
+            try{
+                addressList = geocoder.getFromLocationName(ubicacion.getText().toString(),1);
+
+                if(addressList != null){
+                    double doublelat = addressList.get(0).getLatitude();
+                    double doublelong = addressList.get(0).getLongitude();
+
+                    reporte.setLatitud(doublelat);
+                    reporte.setLongitud(doublelong);
+
+                    Log.w(TAG, "Value Reached" + doublelat + doublelong);
+                }
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+
             //Falta obtener la latitud de la ubicacion entregada
-            reporte.setLatitud(-33.0503315);
+            //reporte.setLatitud(-33.0503315);
             //Falta generar la longitud de la ubicacion entregada
-            reporte.setLongitud(-71.3595593);
+            //reporte.setLongitud(-71.3595593);
             //Falta obtener el id del usuario (rut)
             reporte.setIdUsuario("1");
 
@@ -226,5 +253,9 @@ public class FormularioReporteActivity extends AppCompatActivity {
             posicion--;
             imagenIS.setImageURI(listaimagenes.get(posicion));
         }
+    }
+
+    public void getCoordinates(View view){
+
     }
 }

@@ -16,38 +16,6 @@
         map:uiRotateGestures="true"
         tools:context=".MapsActivity" />
 
-    <RelativeLayout
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/roundedbuttom"
-        android:elevation="10dp">
-
-        <ImageView
-            android:id="@+id/ic_magnify"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_magnify" />
-
-        <EditText
-            android:id="@+id/input_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/ic_magnify"
-            android:background="@null"
-            android:hint="Buscar"
-            android:imeOptions="actionSearch"
-            android:textColor="#000"
-            android:textSize="20sp"
-            android:translationX="10dp" />
-    </RelativeLayout>
-
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/menu_fab"
         android:layout_width="wrap_content"
