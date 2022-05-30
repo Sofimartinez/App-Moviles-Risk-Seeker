@@ -14,7 +14,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 
 import com.example.riskseeker.databinding.ActivityMapsBinding;
@@ -153,10 +152,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
 
         mUiSettings = map.getUiSettings();
-
         //Cargar heatmap
         heatMap(map);
-       // searchLocalitation();
     }
 
     @Override
@@ -173,10 +170,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(cargarMapa);
     }
 
+
     //Heatmap
     private void heatMap(GoogleMap googleMap) {
         map = googleMap;
+        
         List<LatLng> reports = new ArrayList<>();
+        MarkerOptions markerOptions = new MarkerOptions();
+
         // Datos dummy para que no este tan vacio
         reports.add(new LatLng(-33.03764855235323, -71.59483864850512));
         reports.add(new LatLng(-33.03849849235025, -71.5943638975067));
@@ -196,12 +197,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Obtiene datos y se actualiza 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String type = ds.child("tipo").getValue(String.class);
                     Double lat = ds.child("latitud").getValue(Double.class);
                     Double lon = ds.child("longitud").getValue(Double.class);
-                    reports.add(new LatLng(lat, lon));
-                }
 
-                // Crea el heatmap.
+                    reports.add(new LatLng(lat, lon));
+                    //Añadir Marcadores
+
+                    /*
+                    Posible cambio dado el uso de lista de los tipos
+                    */
+
+                    map.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(type).icon(
+                            BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_bookmark_24)));
+
+
+                }
+                // Crea el heatmap
                 HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
                         .data(reports)
                         .radius(30)
