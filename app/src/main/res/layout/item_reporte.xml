@@ -123,47 +123,15 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"/>
 
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
-
-            <TextView
+            <ImageView
                 android:id="@+id/foto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="fotos"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-
-                <ImageButton
-                    android:id="@+id/reboton_anterior"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@android:color/transparent"
-                    android:onClick="REBotonAnterior"
-                    android:src="@drawable/ic_baseline_navigate_before_24" />
-
-                <ImageView
-                    android:id="@+id/reimagenes"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"/>
-
-                <ImageButton
-                    android:id="@+id/reboton_siguiente"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_baseline_navigate_next_24"
-                    android:onClick="REBotonSiguiente"
-                    android:layout_gravity="center_vertical"
-                    />
-            </LinearLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_width="250dp"
+                android:layout_height="250dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

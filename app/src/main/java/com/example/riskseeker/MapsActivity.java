@@ -7,20 +7,16 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.View;
 
+import com.example.riskseeker.databinding.ActivityMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,7 +28,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.riskseeker.databinding.ActivityMapsBinding;
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,14 +53,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double latitud;
     double longitud;
 
-    //private EditText SearchText;
     private static final String TAG = "MapActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //SearchText = (EditText) findViewById(R.id.input_search);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -144,16 +145,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         marcador = googleMap.addMarker(new MarkerOptions()
                 .position(ubicacion)
-                .title("Tú").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                .title("Tú")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
 
         googleMap.setOnMarkerClickListener(this);
         map.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
 
         mUiSettings = map.getUiSettings();
-        mUiSettings.setZoomControlsEnabled(true);
+        mUiSettings.setMapToolbarEnabled(false);
 
-       // searchLocalitation();
+        //Cargar heatmap
+        heatMap(map);
     }
 
     @Override
@@ -165,38 +168,106 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return false;
     }
 
-    /*
-    private void searchLocalitation() {
-        SearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    public void Formulario(View view) {
+        Intent cargarMapa = new Intent(getApplicationContext(),FormularioReporteActivity.class);
+        startActivity(cargarMapa);
+    }
+
+
+    //Heatmap
+    private void heatMap(GoogleMap googleMap) {
+        map = googleMap;
+        
+        List<LatLng> reports = new ArrayList<>();
+        
+        String TAG = "readData";
+        // Referencia a reportes
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = mDatabase.child("Reporte");
+        // TODO: falta agregar un geohash para traer de firebase solo los reportes mas cercanos a x radio https://firebaseopensource.com/projects/firebase/geofire-android/
+        // Por ahora la query trae todos los reportes
+        // Leer de firebase
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
-                    geoLocate();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Obtiene datos y se actualiza 
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String type = ds.child("tipo").getValue(String.class);
+                    Double lat = ds.child("latitud").getValue(Double.class);
+                    Double lon = ds.child("longitud").getValue(Double.class);
+
+                    reports.add(new LatLng(lat, lon));
+
+                    //Añadir Marcadores
+                    switch (type) {
+                        case "Tipo 1":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            break;
+                        case "Tipo 2":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            break;
+                        case "Tipo 3":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                            break;
+                        case "Tipo 4":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                            break;
+                        case "Tipo 5":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+                            break;
+                        case "Tipo 6":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            break;
+                        case "Tipo 7":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            break;
+                        case "Tipo 8":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                            break;
+                    }
                 }
 
-                return false;
+                if(!reports.isEmpty()){
+                    // Crea el heatmap
+                    HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                            .data(reports)
+                            .radius(30)
+                            .build();
+                    // Añadir heatmap overlay al mapa
+                    TileOverlay overlay = map.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Error
+                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
     }
-
-    private void geoLocate(){
-
-        String searchString = SearchText.getText().toString();
-
-        Geocoder geocoder = new Geocoder(MapsActivity.this);
-        List<Address> list = new ArrayList<>();
-        try{
-            list = geocoder.getFromLocationName(searchString, 1);
-        }catch (IOException e){
-            Log.e(TAG, "geoLocate: IOException: " + e.getMessage() );
-        }
-        if(list.size() > 0){
-            Address address = list.get(0);
-            Log.d(TAG, "geoLocate: found a location: " + address.toString());
-
-        }
-    } */
 }

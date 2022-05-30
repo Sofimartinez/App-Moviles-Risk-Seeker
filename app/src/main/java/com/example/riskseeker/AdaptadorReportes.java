@@ -3,49 +3,30 @@ package com.example.riskseeker;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 
 import java.util.ArrayList;
 
 public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.ViewHolderReportes> {
-    private static final String TAG = "adaptador";
-
 
     ArrayList<Reporte> listaReportes;
-    ArrayList<String> Urls;
-    private int posicionn;
-
-
 
     private DatabaseReference databaseReference;
-
-
-
 
     //Contructor de la lista de reportes
     public AdaptadorReportes(ArrayList<Reporte> listaReportes) {
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        posicionn = 0;
-        Urls = new ArrayList<String>();
-
         this.listaReportes = listaReportes;
     }
 
@@ -66,13 +47,12 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
         holder.foto_perfil.setImageResource(listaReportes.get(position).getFoto_perfil());
 
         //------------------------------Es un dato opción (ver como manejarlo)----------------------//
-        holder.imagenIS.setImageResource(0);
+        holder.foto.setImageResource(0);
 
         if(Integer.parseInt(listaReportes.get(position).getFotos())>0){
-            int b = Integer.parseInt(listaReportes.get(position).getFotos());
-            holder.botonSig.setVisibility(View.VISIBLE);
-            holder.botonAnt.setVisibility(View.VISIBLE);
-            final int[] finalI1 = {0};
+            //holder.botonSig.setVisibility(View.VISIBLE);
+            //holder.botonAnt.setVisibility(View.VISIBLE);
+            //final int[] finalI1 = {0};
 
             for(int i = 0; i<Integer.parseInt(listaReportes.get(position).getFotos());i++){
                 final int[] a = {i + 1};
@@ -80,8 +60,8 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            Urls.add(snapshot.getValue().toString());
-                            Picasso.get().load(Urls.get(0)).into(holder.imagenIS);
+                            //Urls.add(snapshot.getValue().toString());
+                            Picasso.get().load(snapshot.getValue().toString()).into(holder.foto);
                         }
                     }
 
@@ -92,10 +72,9 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
                 });
             }
         }
-        holder.foto.setText(listaReportes.get(position).getFotos());
+        //holder.foto.setText(listaReportes.get(position).getFotos());
 
     }
-
 
     //Retorna el tamaño de la lista que se le entrega
     @Override
@@ -106,26 +85,21 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
     //Referencia a los item graficos del recyclerView de reportes
     public class ViewHolderReportes extends RecyclerView.ViewHolder {
 
-        TextView nombre,fecha,tipo,reporte,foto;
-        ImageView foto_perfil,imagenIS;
-        ImageButton botonAnt, botonSig;
+        TextView nombre,fecha,tipo,reporte;
+        ImageView foto_perfil,foto;
 
         public ViewHolderReportes(View itemView) {
             super(itemView);
-            //--------------------
-            botonSig = itemView.findViewById(R.id.reboton_siguiente);
-            botonAnt = itemView.findViewById(R.id.reboton_anterior);
-            imagenIS = itemView.findViewById(R.id.reimagenes);
-            //botonSig.setVisibility(View.INVISIBLE);
-            //botonAnt.setVisibility(View.INVISIBLE);
-            //---------------------
             nombre = itemView.findViewById(R.id.NombreUsuario);
             fecha = itemView.findViewById(R.id.FechaPublicacion);
             tipo = itemView.findViewById(R.id.tipoReporte);
             reporte = itemView.findViewById(R.id.reporte);
             foto = itemView.findViewById(R.id.foto);
             foto_perfil = itemView.findViewById(R.id.idImagenPerfil);
-            botonSig.setOnClickListener(new View.OnClickListener() {
+
+
+            //Cargar mas de 1 imagen por reporte- NO terminado
+            /*tonSig.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(posicionn < Urls.size()-1){
@@ -142,9 +116,7 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
                         Picasso.get().load(Urls.get(posicionn)).into(imagenIS);
                     }
                 }
-            });
-
-
+            });*/
         }
     }
 }

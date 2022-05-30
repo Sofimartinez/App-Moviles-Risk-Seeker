@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,55 +29,27 @@ import com.google.firebase.storage.FirebaseStorage;
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISO_UBICACION = 1;
-    Button usuario;
-    DatabaseReference databaseReference;
+    Button usuario,invitado;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Boolean isInvitado = getIntent().getExtras().getBoolean("invitado");
+
         usuario = findViewById(R.id.usuario);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //FirebaseAuth.getInstance().signOut();
-        //Obtener el usuario que tiene la sesión activa
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            //Sesion iniciada
+        invitado = findViewById(R.id.invitado);
+        if(isInvitado){
             usuario.setVisibility(View.INVISIBLE);
-            String email = user.getEmail();
-            String uid = user.getUid();
-            databaseReference = FirebaseDatabase.getInstance().getReference("Usuario")
-                    .child(uid);
-
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        String nombre = snapshot.child("nombre").getValue().toString();
-                        String apellido = snapshot.child("apellido").getValue().toString();
-                        usuario.setVisibility(View.VISIBLE);
-                        usuario.setText(nombre + " " + apellido);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            //usuario.setText("Sesion iniciada");
-        } else {
-            // Sesión no iniciada
-            usuario.setVisibility(View.INVISIBLE);
+            invitado.setVisibility(View.VISIBLE);
+        }else{
+            usuario.setVisibility(View.VISIBLE);
+            usuario.setText(getIntent().getExtras().getString("nombre"));
+            invitado.setVisibility(View.INVISIBLE);
         }
     }
-
 
     public void CargarMapa(View view) {
         verificarPermiso();
@@ -115,11 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-    }
-
-    public void Formulario(View view) {
-        Intent cargarMapa = new Intent(getApplicationContext(),FormularioReporteActivity.class);
-        startActivity(cargarMapa);
     }
 
     public void iniciarSesion(View view) {

@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -37,13 +38,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class FormularioReporteActivity extends AppCompatActivity {
-    private static final String TAG = "oknowwww";
 
     private int SELECCIONAR_IMAGEN = 1;
 
@@ -58,7 +60,7 @@ public class FormularioReporteActivity extends AppCompatActivity {
     private int posicion;
     private int contadorImg=0;
 
-    private ArrayList<String> Urls;
+    private int[] CC;
 
     private static final String[] lista_tipo = new String[]{"Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4", "Tipo 5", "Tipo 6", "Tipo 7", "Tipo 8"};
 
@@ -90,8 +92,6 @@ public class FormularioReporteActivity extends AppCompatActivity {
 
         listaimagenes = new ArrayList<Uri>();
 
-        Urls = new ArrayList<String>();
-
         confImageSwitcher();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_tipo);
@@ -104,7 +104,6 @@ public class FormularioReporteActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
-
     }
 
     public void CargarImagenes(View view) {
@@ -166,13 +165,28 @@ public class FormularioReporteActivity extends AppCompatActivity {
             reporte.setTipo(tipo_reporte);
             reporte.setCantidadImg(contadorImg);
 
-            //Falta obtener la latitud de la ubicacion entregada
-            reporte.setLatitud(-33.0503315);
-            //Falta generar la longitud de la ubicacion entregada
-            reporte.setLongitud(-71.3595593);
-            //Falta obtener el id del usuario (rut)
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             reporte.setIdUsuario(user.getUid());
+
+            String TAG = "GeolocateReg";
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addressList;
+            try{
+                addressList = geocoder.getFromLocationName(ubicacion.getText().toString(),1);
+
+                if(addressList != null){
+                    double doublelat = addressList.get(0).getLatitude();
+                    double doublelong = addressList.get(0).getLongitude();
+
+                    reporte.setLatitud(doublelat);
+                    reporte.setLongitud(doublelong);
+
+                    Log.w(TAG, "Value Reached" + doublelat + doublelong);
+                }
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
 
             databaseReference.child("Reporte").child(reporte.getIdReporte()).setValue(reporte);
 
@@ -183,7 +197,6 @@ public class FormularioReporteActivity extends AppCompatActivity {
             Limpiar();
         }
     }
-
 
     private void subirFoto(int posicionImg,String nombreid){
         StorageReference path = mStorage.child("Images"+nombreid+posicionImg);
@@ -257,4 +270,5 @@ public class FormularioReporteActivity extends AppCompatActivity {
             imagenIS.setImageURI(listaimagenes.get(posicion));
         }
     }
+
 }
