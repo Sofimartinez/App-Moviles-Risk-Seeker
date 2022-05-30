@@ -34,6 +34,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -153,6 +161,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mUiSettings = map.getUiSettings();
 
+        //Cargar heatmap
+        heatMap(map);
        // searchLocalitation();
     }
 
@@ -204,4 +214,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     } */
+
+    //Heatmap
+    private void heatMap(GoogleMap googleMap) {
+        map = googleMap;
+        List<LatLng> reports = new ArrayList<>();
+        // Datos dummy para que no este tan vacio
+        reports.add(new LatLng(-33.03764855235323, -71.59483864850512));
+        reports.add(new LatLng(-33.03849849235025, -71.5943638975067));
+        reports.add(new LatLng(-33.037862162391804, -71.595436781072));
+        reports.add(new LatLng(-33.037519824453916, -71.59443884144254));
+        reports.add(new LatLng(-33.03810810497309, -71.59459436330765));
+        
+        String TAG = "readData";
+        // Referencia a reportes
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = mDatabase.child("Reporte");
+        // TODO: falta agregar un geohash para traer de firebase solo los reportes mas cercanos a x radio https://firebaseopensource.com/projects/firebase/geofire-android/
+        // Por ahora la query trae todos los reportes
+        // Leer de firebase
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Obtiene datos y se actualiza 
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Double lat = ds.child("latitud").getValue(Double.class);
+                    Double lon = ds.child("longitud").getValue(Double.class);
+                    reports.add(new LatLng(lat, lon));
+                }
+
+                // Crea el heatmap.
+                HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                        .data(reports)
+                        .radius(30)
+                        .build();
+                // Añadir heatmap overlay al mapa
+                TileOverlay overlay = map.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Error
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
 }
