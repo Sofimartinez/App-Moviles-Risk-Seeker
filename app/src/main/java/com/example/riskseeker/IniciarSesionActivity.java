@@ -77,7 +77,7 @@ public class IniciarSesionActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Usuario no encontrado",
                                                 Toast.LENGTH_SHORT).show();
                                         Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                                        i.putExtra("invitado",false);
+                                        i.putExtra("invitado",true);
                                         i.putExtra("nombre","");
                                         startActivity(i);
                                     }

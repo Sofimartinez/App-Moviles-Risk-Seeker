@@ -26,6 +26,8 @@ import android.widget.ViewSwitcher;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -159,6 +161,8 @@ public class FormularioReporteActivity extends AppCompatActivity {
             reporte.setTipo(tipo_reporte);
             reporte.setCantidadImg(contadorImg);
 
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            reporte.setIdUsuario(user.getUid());
 
             String TAG = "GeolocateReg";
             Geocoder geocoder = new Geocoder(this);
@@ -179,13 +183,6 @@ public class FormularioReporteActivity extends AppCompatActivity {
             catch (IOException e){
                 e.printStackTrace();
             }
-
-            //Falta obtener la latitud de la ubicacion entregada
-            //reporte.setLatitud(-33.0503315);
-            //Falta generar la longitud de la ubicacion entregada
-            //reporte.setLongitud(-71.3595593);
-            //Falta obtener el id del usuario (rut)
-            reporte.setIdUsuario("1");
 
             databaseReference.child("Reporte").child(reporte.getIdReporte()).setValue(reporte);
 
@@ -255,7 +252,4 @@ public class FormularioReporteActivity extends AppCompatActivity {
         }
     }
 
-    public void getCoordinates(View view){
-
-    }
 }

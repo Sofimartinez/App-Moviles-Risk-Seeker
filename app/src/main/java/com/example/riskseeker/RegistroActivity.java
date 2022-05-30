@@ -84,7 +84,10 @@ public class RegistroActivity extends AppCompatActivity {
 
                                     Toast.makeText(getApplicationContext(), "Usuario Registrado",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
+
+                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    i.putExtra("invitado",false);
+                                    i.putExtra("nombre",nombre.getText().toString()+ " " + apellido.getText().toString() );
                                     startActivity(i);
                                     //updateUI(user);
                                 } else {

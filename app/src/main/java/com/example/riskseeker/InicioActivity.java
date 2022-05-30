@@ -33,7 +33,7 @@ public class InicioActivity extends AppCompatActivity {
     }
 
     public void obtenerSesion(){
-        FirebaseAuth.getInstance().signOut();
+        //FirebaseAuth.getInstance().signOut();
         //Obtener el usuario que tiene la sesión activa
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -54,7 +54,6 @@ public class InicioActivity extends AppCompatActivity {
                         inicio.putExtra("invitado",invitado);
                         inicio.putExtra("nombre",usuario);
                         startActivity(inicio);
-                        Log.e("sesion",usuario);
                     }
                 }
                 @Override

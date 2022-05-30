@@ -145,13 +145,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         marcador = googleMap.addMarker(new MarkerOptions()
                 .position(ubicacion)
-                .title("Tú").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                .title("Tú")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
 
         googleMap.setOnMarkerClickListener(this);
         map.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
 
         mUiSettings = map.getUiSettings();
+        mUiSettings.setMapToolbarEnabled(false);
+
         //Cargar heatmap
         heatMap(map);
     }
@@ -176,14 +179,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map = googleMap;
         
         List<LatLng> reports = new ArrayList<>();
-        MarkerOptions markerOptions = new MarkerOptions();
-
-        // Datos dummy para que no este tan vacio
-        reports.add(new LatLng(-33.03764855235323, -71.59483864850512));
-        reports.add(new LatLng(-33.03849849235025, -71.5943638975067));
-        reports.add(new LatLng(-33.037862162391804, -71.595436781072));
-        reports.add(new LatLng(-33.037519824453916, -71.59443884144254));
-        reports.add(new LatLng(-33.03810810497309, -71.59459436330765));
         
         String TAG = "readData";
         // Referencia a reportes
@@ -203,24 +198,69 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Double lon = ds.child("longitud").getValue(Double.class);
 
                     reports.add(new LatLng(lat, lon));
+
                     //Añadir Marcadores
-
-                    /*
-                    Posible cambio dado el uso de lista de los tipos
-                    */
-
-                    map.addMarker(new MarkerOptions().position(new LatLng(lat, lon)).title(type).icon(
-                            BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_bookmark_24)));
-
-
+                    switch (type) {
+                        case "Tipo 1":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            break;
+                        case "Tipo 2":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            break;
+                        case "Tipo 3":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                            break;
+                        case "Tipo 4":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                            break;
+                        case "Tipo 5":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+                            break;
+                        case "Tipo 6":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            break;
+                        case "Tipo 7":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            break;
+                        case "Tipo 8":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                            break;
+                    }
                 }
-                // Crea el heatmap
-                HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
-                        .data(reports)
-                        .radius(30)
-                        .build();
-                // Añadir heatmap overlay al mapa
-                TileOverlay overlay = map.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+
+                if(!reports.isEmpty()){
+                    // Crea el heatmap
+                    HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                            .data(reports)
+                            .radius(30)
+                            .build();
+                    // Añadir heatmap overlay al mapa
+                    TileOverlay overlay = map.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+                }
             }
 
             @Override
