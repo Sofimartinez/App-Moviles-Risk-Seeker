@@ -179,7 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map = googleMap;
         
         List<LatLng> reports = new ArrayList<>();
-        
+
         String TAG = "readData";
         // Referencia a reportes
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -201,49 +201,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     //Añadir Marcadores
                     switch (type) {
-                        case "Tipo 1":
+                        case "Hurto":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                             break;
-                        case "Tipo 2":
+                        case "Actividad sospechosa":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             break;
-                        case "Tipo 3":
+                        case "Asalto":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
                             break;
-                        case "Tipo 4":
+                        case "Acoso":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                             break;
-                        case "Tipo 5":
+                        case "Secuestro":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                             break;
-                        case "Tipo 6":
+                        case "Tráfico de drogas":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                             break;
-                        case "Tipo 7":
+                        case "Tráfico de armas":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                             break;
-                        case "Tipo 8":
+                        case "disturbios":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)

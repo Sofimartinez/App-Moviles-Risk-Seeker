@@ -60,9 +60,7 @@ public class FormularioReporteActivity extends AppCompatActivity {
     private int posicion;
     private int contadorImg=0;
 
-    private int[] CC;
-
-    private static final String[] lista_tipo = new String[]{"Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4", "Tipo 5", "Tipo 6", "Tipo 7", "Tipo 8"};
+    private static final String[] lista_tipo = new String[]{"Hurto", "Actividad sospechosa", "Asalto", "Acoso", "Secuestro", "Tráfico de drogas", "Tráfico de armas", "disturbios"};
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
