@@ -50,14 +50,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double latitud;
     double longitud;
 
-    private EditText SearchText;
+    //private EditText SearchText;
     private static final String TAG = "MapActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        SearchText = (EditText) findViewById(R.id.input_search);
+        //SearchText = (EditText) findViewById(R.id.input_search);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -2,11 +2,13 @@ package com.example.riskseeker;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,8 +24,13 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,6 +43,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class FormularioReporteActivity extends AppCompatActivity {
+    private static final String TAG = "oknowwww";
 
     private int SELECCIONAR_IMAGEN = 1;
 
@@ -49,6 +57,8 @@ public class FormularioReporteActivity extends AppCompatActivity {
     private Uri imagenUri;
     private int posicion;
     private int contadorImg=0;
+
+    private ArrayList<String> Urls;
 
     private static final String[] lista_tipo = new String[]{"Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4", "Tipo 5", "Tipo 6", "Tipo 7", "Tipo 8"};
 
@@ -80,6 +90,8 @@ public class FormularioReporteActivity extends AppCompatActivity {
 
         listaimagenes = new ArrayList<Uri>();
 
+        Urls = new ArrayList<String>();
+
         confImageSwitcher();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_tipo);
@@ -92,6 +104,7 @@ public class FormularioReporteActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
+
     }
 
     public void CargarImagenes(View view) {
@@ -158,27 +171,44 @@ public class FormularioReporteActivity extends AppCompatActivity {
             //Falta generar la longitud de la ubicacion entregada
             reporte.setLongitud(-71.3595593);
             //Falta obtener el id del usuario (rut)
-            reporte.setIdUsuario("1");
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            reporte.setIdUsuario(user.getUid());
 
             databaseReference.child("Reporte").child(reporte.getIdReporte()).setValue(reporte);
 
             if(contadorImg > 0){
-                subirFoto(listaimagenes.size());
+                subirFoto(listaimagenes.size(),reporte.getIdReporte());
             }
             Toast.makeText(this,"Agregado",Toast.LENGTH_LONG).show();
             Limpiar();
         }
     }
 
-    private void subirFoto(int posicionImg){
-        StorageReference path = mStorage.child("Images"+listaimagenes.get(posicionImg-1).getLastPathSegment());
-        path.putFile(listaimagenes.get(posicionImg-1)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+    private void subirFoto(int posicionImg,String nombreid){
+        StorageReference path = mStorage.child("Images"+nombreid+posicionImg);
+        UploadTask uploadTask = path.putFile(listaimagenes.get(posicionImg-1));
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                subirFoto(posicionImg-1);
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if(!task.isSuccessful()){
+                    throw task.getException();
+                }
+                return path.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>(){
+            @Override
+            public void onComplete(@NonNull Task<Uri> task){
+                if(task.isSuccessful()){
+                    Uri downloadUri = task.getResult();
+                    String urlFoto = downloadUri.toString();
+                    databaseReference.child("ImageUrl").child("Images"+nombreid+posicionImg).setValue(urlFoto);
+                }
             }
         });
-
+        if(posicionImg-1>0){
+            subirFoto(posicionImg-1,nombreid);
+        }
     }
 
     private void Limpiar() {

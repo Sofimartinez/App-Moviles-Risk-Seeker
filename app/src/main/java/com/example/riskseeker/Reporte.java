@@ -2,23 +2,26 @@ package com.example.riskseeker;
 
 public class Reporte {
 
+
     private String nombre;
     private String fecha;
     private String inf_reporte;
     private int foto_perfil;
     private String tipo;
     private String fotos;
+    private String idreporte;
 
     public void reporte(){
     }
 
-    public Reporte(String nombre, String fecha, String inf_reporte, String fotos, int foto_perfil, String tipo) {
+    public Reporte(String nombre, String fecha, String inf_reporte, String fotos, int foto_perfil, String tipo,String idreporte) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.inf_reporte = inf_reporte;
         this.fotos = fotos;
         this.foto_perfil = foto_perfil;
         this.tipo = tipo;
+        this.idreporte = idreporte;
     }
 
     public String getInf_reporte() {
@@ -68,4 +71,9 @@ public class Reporte {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public void setIdreporte(String uid) {
+        this.idreporte = idreporte;
+    }
+    public String getIdreporte() {return  idreporte;}
 }
