@@ -1,11 +1,8 @@
 package com.example.riskseeker;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
@@ -25,9 +21,9 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.riskseeker.models.InfoReporte;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,7 +87,6 @@ public class FormularioReporteActivity extends AppCompatActivity {
         listaimagenes = new ArrayList<Uri>();
 
         confImageSwitcher();
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista_tipo);
         tipo.setAdapter(adapter);
 
@@ -231,6 +226,7 @@ public class FormularioReporteActivity extends AppCompatActivity {
         listaimagenes.clear();
         botonSig.setVisibility(View.INVISIBLE);
         botonAnt.setVisibility(View.INVISIBLE);
+        imagenIS.setVisibility(View.INVISIBLE);
     }
 
     private void Validacion(String desc_reporte, String ubic_reporte, String tipo_reporte) {

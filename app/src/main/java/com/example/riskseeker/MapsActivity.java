@@ -266,7 +266,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCancelled(DatabaseError error) {
                 // Error
-                Log.w(TAG, "Failed to read value.", error.toException());
+                Log.w(TAG, "Error al leer los datos", error.toException());
             }
         });
     }

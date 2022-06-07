@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ public class IniciarSesionActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+    private static final String TAG = "InicioSesionActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +41,11 @@ public class IniciarSesionActivity extends AppCompatActivity {
     }
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
     }
 
 
     public void IniciarSession(View view){
-
 
         mAuth.signInWithEmailAndPassword(correo.getText().toString(), contraseña.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -80,12 +80,13 @@ public class IniciarSesionActivity extends AppCompatActivity {
                                         i.putExtra("invitado",true);
                                         i.putExtra("nombre","");
                                         startActivity(i);
+                                        finish();
                                     }
                                 }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-
+                                    Log.w(TAG, "Error al iniciar sesion", error.toException());
                                 }
                             });
 

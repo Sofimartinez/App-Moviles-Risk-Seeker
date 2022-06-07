@@ -5,146 +5,174 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FormularioReporteActivity">
+    tools:context=".FormularioReporteActivity"
+    android:background="@color/mainbackground"
+    android:padding="5dp">
 
-    <Switch
-        android:id="@+id/idAnonimo"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="17sp"
-        android:text="@string/reporte_anonimo"
-        tools:ignore="UseSwitchCompatOrMaterialXml"
-        android:onClick="activarAnonimo"/>
+        android:textSize="30sp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/smartchameleon"
+        android:text="@string/formularioReporte"
+        />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_baseline_location_on_24"
-        android:hint="@string/ubicacion">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/idUbicacion"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/tipo_reporte"
-        app:startIconDrawable="@drawable/ic_baseline_campaign_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <Switch
+                android:id="@+id/idAnonimo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:onClick="activarAnonimo"
+                android:text="@string/reporte_anonimo"
+                android:textColor="@color/texto_formulario"
+                android:textColorHighlight="@color/primario_claro"
+                android:textColorHint="@color/primario"
+                android:textColorLink="@color/primario_oscuro"
+                android:textSize="17sp"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                tools:visibility="visible" />
 
-        <AutoCompleteTextView
-            android:id="@+id/idSelec_tipo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:boxBackgroundColor="@color/white"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_baseline_location_on_24"
+                android:hint="@string/ubicacion">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idUbicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_baseline_edit_24"
-        android:hint="@string/descripcion"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/tipo_reporte"
+                app:boxBackgroundColor="@color/white"
+                app:startIconDrawable="@drawable/ic_baseline_campaign_24"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/idDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/idSelec_tipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/idAgregarImagen"
-            style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/white"
-            android:onClick="CargarImagenes" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:endIconMode="clear_text"
+                app:boxBackgroundColor="@color/white"
+                app:startIconDrawable="@drawable/ic_baseline_edit_24"
+                android:hint="@string/descripcion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <TextView
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignBottom="@+id/agregarImagen"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="19dp"
-            android:elevation="20dp"
-            android:text="Agregar imagen"
-            android:textColor="@color/texto_formulario"
-            android:textSize="16sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/Imageids"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/agregarImagen"
-            android:layout_alignTop="@+id/agregarImagen"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="19dp"
-            android:elevation="20dp"
-            android:onClick="CargarImagenes"
-            android:src="@drawable/ic_baseline_add_photo_alternate_24" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/idAgregarImagen"
+                    android:textColor="@color/texto_formulario"
+                    android:textSize="15sp"
+                    android:elevation="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/agregar_imagen" />
 
-        <ImageButton
-            android:id="@+id/boton_anterior"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:onClick="BotonAnterior"
-            android:src="@drawable/ic_baseline_navigate_before_24" />
+                <Button
+                    android:id="@+id/idAgregarImagen"
+                    style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:backgroundTint="@color/white"
+                    android:onClick="CargarImagenes"
+                    android:textAllCaps="false"
+                    app:icon="@drawable/ic_baseline_add_photo_alternate_24"
+                    app:iconSize="28sp"
+                    app:iconTint="#727272" />
 
-        <ImageSwitcher
-            android:id="@+id/imagenes"
-            android:layout_width="250dp"
-            android:layout_height="250dp"/>
+            </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/boton_siguiente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_navigate_next_24"
-            android:onClick="BotonSiguiente"
-            android:layout_gravity="center_vertical"
-            />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/idAgregar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:onClick="AgregarReporte"
-        android:text="Agregar"
-        android:layout_gravity="right"/>
+                <ImageButton
+                    android:id="@+id/boton_anterior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:onClick="BotonAnterior"
+                    android:src="@drawable/ic_baseline_navigate_before_24" />
+
+                <ImageSwitcher
+                    android:id="@+id/imagenes"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"/>
+
+                <ImageButton
+                    android:id="@+id/boton_siguiente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_navigate_next_24"
+                    android:onClick="BotonSiguiente"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/idAgregar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:onClick="AgregarReporte"
+                android:text="@string/agregar"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

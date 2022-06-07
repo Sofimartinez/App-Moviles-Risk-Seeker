@@ -1,4 +1,4 @@
-package com.example.riskseeker;
+package com.example.riskseeker.models;
 
 import android.net.Uri;
 

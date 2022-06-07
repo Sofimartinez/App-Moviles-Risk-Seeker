@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.riskseeker.adapters.AdaptadorReportes;
+import com.example.riskseeker.models.Reporte;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,10 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ReporteActivity extends AppCompatActivity {
-    private static final String TAG = "MyActivity";
+    private static final String TAG = "ReporteActivity";
 
 
     ArrayList<Reporte> listaReportes;
+    ArrayList<String> listaImagenes;
     ArrayList<String> uids;
     RecyclerView recyclerReportes;
 
@@ -32,20 +35,16 @@ public class ReporteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reporte);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-
         listaReportes = new ArrayList<>();
+        listaImagenes = new ArrayList<>();
         uids = new ArrayList<>();
 
         recyclerReportes = findViewById(R.id.reportes);
-
 
         //Lista de tipo vertical
         recyclerReportes.setLayoutManager(new LinearLayoutManager(this));
 
         CargarReportes();
-        //Se crea una instancia del adaptador
-
-
     }
 
 
@@ -60,10 +59,11 @@ public class ReporteActivity extends AppCompatActivity {
                                 snapsho.child("fecha").getValue().toString(),
                                 snapsho.child("descripcion").getValue().toString(),
                                 snapsho.child("cantidadImg").getValue().toString(),
-                                R.mipmap.ic_launcher,
+                                R.drawable.ic_baseline_person_24_gris,
                                 snapsho.child("tipo").getValue().toString(),
-                                snapsho.child("idReporte").getValue().toString()));
-
+                                snapsho.child("idReporte").getValue().toString(),
+                                snapsho.child("anonimo").getValue().toString(),
+                                new ArrayList()));
                     }
                 }
             }
@@ -79,17 +79,32 @@ public class ReporteActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     for(int i= 0;i< listaReportes.size();i++){
                         Reporte r = listaReportes.get(i);
-                        r.setNombre(snapshot.child(r.getNombre()).child("nombre").getValue().toString());
+                        if(r.isAnonimo().equals("true")){
+                            r.setNombre("Anónimo");
+                        }else{
+                            String nombre = snapshot.child(r.getNombre()).child("nombre").getValue().toString();
+                            String apellido = snapshot.child(r.getNombre()).child("apellido").getValue().toString();
+                            r.setNombre(nombre + " " + apellido);
+
+                        }
+                        if(Integer.parseInt(r.getFotos())>0){
+                            listaImagenes.clear();
+                            for(int pos_imagen = 1; pos_imagen<=Integer.parseInt(r.getFotos());pos_imagen++){
+                                r.setListaImagenes("Images"+listaReportes.get(i).getIdreporte()+pos_imagen);
+
+                            }
+                        }
                         listaReportes.set(i,r);
                     }
-                    AdaptadorReportes adapter = new AdaptadorReportes(listaReportes);
+                    //Se crea una instancia del adaptador
+                    AdaptadorReportes adapter = new AdaptadorReportes(getApplicationContext(),listaReportes);
                     recyclerReportes.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.w(TAG, "Error al buscar el usuario", error.toException());
             }
         });
 

@@ -1,4 +1,6 @@
-package com.example.riskseeker;
+package com.example.riskseeker.models;
+
+import java.util.ArrayList;
 
 public class Reporte {
 
@@ -8,20 +10,21 @@ public class Reporte {
     private String inf_reporte;
     private int foto_perfil;
     private String tipo;
-    private String fotos;
+    private String cantidadImg;
     private String idreporte;
+    private String anonimo;
+    private ArrayList<String> listaImagenes;
 
-    public void reporte(){
-    }
-
-    public Reporte(String nombre, String fecha, String inf_reporte, String fotos, int foto_perfil, String tipo,String idreporte) {
+    public Reporte(String nombre, String fecha, String inf_reporte,String cantidadImg, int foto_perfil, String tipo,String idreporte, String anonimo, ArrayList<String> listaImagenes) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.inf_reporte = inf_reporte;
-        this.fotos = fotos;
+        this.cantidadImg = cantidadImg;
         this.foto_perfil = foto_perfil;
         this.tipo = tipo;
         this.idreporte = idreporte;
+        this.anonimo = anonimo;
+        this.listaImagenes = listaImagenes;
     }
 
     public String getInf_reporte() {
@@ -49,11 +52,11 @@ public class Reporte {
     }
 
     public String getFotos() {
-        return fotos;
+        return cantidadImg;
     }
 
-    public void setFotos(String fotos) {
-        this.fotos = fotos;
+    public void setFotos(String cantidadImg) {
+        this.cantidadImg= cantidadImg;
     }
 
     public int getFoto_perfil() {
@@ -75,5 +78,22 @@ public class Reporte {
     public void setIdreporte(String uid) {
         this.idreporte = idreporte;
     }
+
     public String getIdreporte() {return  idreporte;}
+
+    public String isAnonimo() {
+        return anonimo;
+    }
+
+    public void setAnonimo(String anonimo) {
+        this.anonimo = anonimo;
+    }
+
+    public ArrayList<String> getListaImagenes() {
+        return listaImagenes;
+    }
+
+    public void setListaImagenes(String nombreImagen) {
+        listaImagenes.add(nombreImagen);
+    }
 }

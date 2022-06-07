@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="8dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="15dp"
         android:animateLayoutChanges="true"
-        card_view:cardBackgroundColor="@color/gris">
+        card_view:cardBackgroundColor="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,11 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/texto_secundario_2"
-                android:layout_marginTop="20dp"
-                android:text="fecha publicacion"
+                android:layout_marginTop="10dp"
+                android:text="@string/fecha"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,24 +37,26 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/idImagenPerfil"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="49dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_baseline_person_24_gris"
+                    app:civ_border_color="@color/primario"
                     app:civ_border_width="2dp"
-                    app:civ_border_color="@color/primario"/>
+                    app:civ_fill_color="@color/mainbackground1" />
 
                 <TextView
                     android:id="@+id/NombreUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de usuario"
-                    android:textColor="@color/black"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="sans-serif"
                     android:padding="5dp"
-                    android:textStyle="bold"
-                    android:textSize="20sp"/>
+                    android:text="Nombre de usuario"
+                    android:textColor="@color/texto_formulario"
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
@@ -66,7 +68,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
-                card_view:cardBackgroundColor="@color/white">
+                card_view:cardBackgroundColor="@color/mainbackground1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -99,8 +101,8 @@
                 android:animateLayoutChanges="true"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp"
-                card_view:cardBackgroundColor="@color/white">
+                android:layout_marginBottom="10dp"
+                card_view:cardBackgroundColor="@color/mainbackground1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -123,15 +125,15 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"/>
 
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-            <ImageView
-                android:id="@+id/foto"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="250dp"
-                android:layout_height="250dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagenes_reporte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

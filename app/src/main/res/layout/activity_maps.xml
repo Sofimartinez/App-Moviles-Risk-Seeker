@@ -24,36 +24,41 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:fab_addButtonColorNormal="@color/secundario"
-        app:fab_addButtonColorPressed="@color/secundario_variante">
+        app:fab_addButtonColorNormal="@color/primario"
+        app:fab_addButtonColorPressed="@color/primario_oscuro">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/primario"
-            app:fab_addButtonColorPressed="@color/primario_oscuro"            app:fab_icon="@drawable/ic_baseline_person_24"
             android:layout_margin="5dp"
-            app:fab_size="mini"/>
+            app:fab_colorDisabled="@color/primario_oscuro"
+            app:fab_colorNormal="@color/primario"
+            app:fab_colorPressed="@color/primario_oscuro"
+            app:fab_icon="@drawable/ic_baseline_person_24"
+            app:fab_size="mini" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/reporte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="Formulario"
+            app:fab_colorDisabled="@color/primario_oscuro"
             app:fab_colorNormal="@color/primario"
+            app:fab_colorPressed="@color/primario_oscuro"
             app:fab_addButtonColorPressed="@color/primario_oscuro"
             app:fab_icon="@drawable/ic_baseline_campaign_24"
-            app:fab_size="mini"
-            android:onClick="Formulario"/>
+            app:fab_size="mini" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/buscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_colorDisabled="@color/primario_oscuro"
             app:fab_colorNormal="@color/primario"
-            app:fab_addButtonColorPressed="@color/primario_oscuro"
+            app:fab_colorPressed="@color/primario_oscuro"
             app:fab_icon="@drawable/ic_baseline_search_24"
-            app:fab_size="mini"/>
+            app:fab_size="mini" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

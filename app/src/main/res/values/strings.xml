@@ -36,4 +36,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="fab_content_desc">Mostrar opciones</string>
+    <string name="RegistrarseGoogle">Google</string>
+    <string name="formularioReporte">Ingreso Reporte</string>
+    <string name="agregar">Agregar</string>
+    <string name="descLogo">Logo risk seeker</string>
+    <string name="fecha">fecha publicacion</string>
 </resources>

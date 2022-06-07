@@ -5,17 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".IniciarSesionActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/mainbackground"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/smartchameleon"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:contentDescription="@string/descLogo"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/titulo_iniciosesion"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="left"
+        android:padding="15dp"
+        android:fontFamily="@font/smartchameleon"
         android:textColor="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -24,6 +55,7 @@
         android:layout_margin="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
         android:hint="@string/correo">
 
     <com.google.android.material.textfield.TextInputEditText
@@ -39,6 +71,7 @@
         android:layout_margin="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/white"
         android:hint="@string/contraseña">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -50,11 +83,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/idlogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/idlogin"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif"
+        android:onClick="IniciarSession"
         android:text="@string/IniciarSesión"
-        android:onClick="IniciarSession"/>
+        android:textAllCaps="false" />
 
 
 </LinearLayout>
