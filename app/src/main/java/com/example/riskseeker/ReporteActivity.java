@@ -23,7 +23,6 @@ public class ReporteActivity extends AppCompatActivity {
 
 
     ArrayList<Reporte> listaReportes;
-    ArrayList<String> listaImagenes;
     ArrayList<String> uids;
     RecyclerView recyclerReportes;
 
@@ -36,7 +35,6 @@ public class ReporteActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         listaReportes = new ArrayList<>();
-        listaImagenes = new ArrayList<>();
         uids = new ArrayList<>();
 
         recyclerReportes = findViewById(R.id.reportes);
@@ -88,7 +86,6 @@ public class ReporteActivity extends AppCompatActivity {
 
                         }
                         if(Integer.parseInt(r.getFotos())>0){
-                            listaImagenes.clear();
                             for(int pos_imagen = 1; pos_imagen<=Integer.parseInt(r.getFotos());pos_imagen++){
                                 r.setListaImagenes("Images"+listaReportes.get(i).getIdreporte()+pos_imagen);
 
