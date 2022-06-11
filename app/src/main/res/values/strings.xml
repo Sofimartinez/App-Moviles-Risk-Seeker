@@ -41,4 +41,16 @@
     <string name="agregar">Agregar</string>
     <string name="descLogo">Logo risk seeker</string>
     <string name="fecha">fecha publicacion</string>
+    <string name="cerrarsesion">Cerrar sesión</string>
+    <string name="perfil">Perfil</string>
+    <string name="content_description_sesion">Cerrar sesion</string>
+    <string name="cantidad_reportes">0</string>
+    <string name="Cerrar_sesion">Cerrar Sesión</string>
+    <string name="mensaje_cerrar_sesion">¿Esta seguro que desea cerrar sesión?</string>
+    <string name="boton_cerrar">cerrar sesión</string>
+    <string name="boton_nocerrar">Cancelar</string>
+    <string name="error_datos_usuario">No se pudo obtener los datos del usuario</string>
+    <string name="anonimo">Publicado de forma anónima</string>
+    <string name="reporte_no_anonimo">Este reporte no es anónimo</string>
+    <string name="reporte_si_anonimo">Este reporte es anónimo</string>
 </resources>

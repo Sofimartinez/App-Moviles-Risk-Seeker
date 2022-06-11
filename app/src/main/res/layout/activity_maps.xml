@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:onClick="CargarPerfil"
             app:fab_colorDisabled="@color/primario_oscuro"
             app:fab_colorNormal="@color/primario"
             app:fab_colorPressed="@color/primario_oscuro"
@@ -42,11 +43,11 @@
             android:id="@+id/reporte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="Formulario"
+            android:onClick="CargarFormulario"
+            app:fab_addButtonColorPressed="@color/primario_oscuro"
             app:fab_colorDisabled="@color/primario_oscuro"
             app:fab_colorNormal="@color/primario"
             app:fab_colorPressed="@color/primario_oscuro"
-            app:fab_addButtonColorPressed="@color/primario_oscuro"
             app:fab_icon="@drawable/ic_baseline_campaign_24"
             app:fab_size="mini" />
 

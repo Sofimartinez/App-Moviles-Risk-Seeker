@@ -44,7 +44,6 @@ public class IniciarSesionActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-
     public void IniciarSession(View view){
 
         mAuth.signInWithEmailAndPassword(correo.getText().toString(), contraseña.getText().toString())
@@ -73,6 +72,8 @@ public class IniciarSesionActivity extends AppCompatActivity {
                                         i.putExtra("invitado",false);
                                         i.putExtra("nombre",nombre+ " " + apellido);
                                         startActivity(i);
+                                        finish();
+
                                     }else{
                                         Toast.makeText(getApplicationContext(), "Usuario no encontrado",
                                                 Toast.LENGTH_SHORT).show();
@@ -97,7 +98,6 @@ public class IniciarSesionActivity extends AppCompatActivity {
                         }
                     }
                 });
-
 
     }
 

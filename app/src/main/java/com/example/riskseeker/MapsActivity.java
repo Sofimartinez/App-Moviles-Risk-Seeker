@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.riskseeker.databinding.ActivityMapsBinding;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public String provider;
     double latitud;
     double longitud;
+    private FloatingActionButton perfil, reporte;
 
     private static final String TAG = "MapActivity";
 
@@ -62,6 +64,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Boolean isInvitado = getIntent().getExtras().getBoolean("invitado");
+        perfil = findViewById(R.id.perfil);
+        reporte = findViewById(R.id.reporte);
+
+        if(isInvitado){
+            perfil.setVisibility(View.INVISIBLE);
+            reporte.setVisibility(View.INVISIBLE);
+        }else{
+            perfil.setVisibility(View.VISIBLE);
+            reporte.setVisibility(View.VISIBLE);
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -168,11 +182,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return false;
     }
 
-    public void Formulario(View view) {
+    public void CargarFormulario(View view) {
         Intent cargarMapa = new Intent(getApplicationContext(),FormularioReporteActivity.class);
         startActivity(cargarMapa);
     }
 
+    public void CargarPerfil(View view) {
+        Intent cargarPerfil = new Intent(getApplicationContext(),PerfilActivity.class);
+        startActivity(cargarPerfil);
+    }
 
     //Heatmap
     private void heatMap(GoogleMap googleMap) {

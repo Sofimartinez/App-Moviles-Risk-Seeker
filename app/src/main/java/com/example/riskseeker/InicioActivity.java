@@ -36,7 +36,6 @@ public class InicioActivity extends AppCompatActivity {
     }
 
     public void obtenerSesion(){
-        //FirebaseAuth.getInstance().signOut();
         //Obtener el usuario que tiene la sesión activa
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Intent inicio = new Intent(getApplicationContext(), MainActivity.class);

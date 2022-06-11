@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISO_UBICACION = 1;
     Button usuario,invitado;
-
+    private Boolean isInvitado = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Boolean isInvitado = getIntent().getExtras().getBoolean("invitado");
+        isInvitado = getIntent().getExtras().getBoolean("invitado");
 
         usuario = findViewById(R.id.usuario);
         invitado = findViewById(R.id.invitado);
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
     //Si se otorgo el permiso se carga el mapa
     private void permisoUbicacionConcedido() {
         Intent cargarMapa = new Intent(getApplicationContext(),MapsActivity.class);
+        cargarMapa.putExtra("invitado",isInvitado );
         startActivity(cargarMapa);
-
     }
 
     private void verificarPermiso() {
