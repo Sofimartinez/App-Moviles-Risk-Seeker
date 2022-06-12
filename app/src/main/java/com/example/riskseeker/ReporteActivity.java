@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.riskseeker.adapters.AdaptadorReportes;
 import com.example.riskseeker.models.Reporte;
@@ -23,19 +25,25 @@ public class ReporteActivity extends AppCompatActivity {
 
 
     ArrayList<Reporte> listaReportes;
-    ArrayList<String> uids;
     RecyclerView recyclerReportes;
 
     private DatabaseReference databaseReference;
+    private String idReporte;
+    private Location location_report_selec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporte);
+
+        idReporte = getIntent().getExtras().getString("idReporte");
+        location_report_selec = new Location("Reporte seleccionado");
+        location_report_selec.setLatitude(getIntent().getExtras().getDouble("latitud"));
+        location_report_selec.setLongitude(getIntent().getExtras().getDouble("longitud"));
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         listaReportes = new ArrayList<>();
-        uids = new ArrayList<>();
 
         recyclerReportes = findViewById(R.id.reportes);
 
@@ -52,23 +60,42 @@ public class ReporteActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot snapsho: snapshot.getChildren()){
-                        uids.add(snapsho.child("idUsuario").getValue().toString());
-                        listaReportes.add(new Reporte(snapsho.child("idUsuario").getValue().toString(),
-                                snapsho.child("fecha").getValue().toString(),
-                                snapsho.child("descripcion").getValue().toString(),
-                                snapsho.child("cantidadImg").getValue().toString(),
-                                R.drawable.ic_baseline_person_24_gris,
-                                snapsho.child("tipo").getValue().toString(),
-                                snapsho.child("idReporte").getValue().toString(),
-                                snapsho.child("anonimo").getValue().toString(),
-                                new ArrayList()));
+                        //Radio de la información de los reportes que se mostrará (500 metros)
+                        Double radio = Double.valueOf(500);
+
+                        Location location_reporte = new Location("Reporte cercano");
+                        location_reporte.setLatitude((Double) snapsho.child("latitud").getValue());
+                        location_reporte.setLongitude((Double) snapsho.child("longitud").getValue());
+
+                        //Al momento de mostrar la información de los reportes cercanos y el seleccionando se posicionará primero el seleccionado
+                        if(snapsho.child("idReporte").getValue().toString().equals(idReporte)){
+                            listaReportes.add(0, new Reporte(snapsho.child("idUsuario").getValue().toString(),
+                                    snapsho.child("fecha").getValue().toString(),
+                                    snapsho.child("descripcion").getValue().toString(),
+                                    snapsho.child("cantidadImg").getValue().toString(),
+                                    R.drawable.ic_baseline_person_24_gris,
+                                    snapsho.child("tipo").getValue().toString(),
+                                    snapsho.child("idReporte").getValue().toString(),
+                                    snapsho.child("anonimo").getValue().toString(),
+                                    new ArrayList()));
+                        }else if(location_reporte.distanceTo(location_report_selec)<= radio){
+                            listaReportes.add(new Reporte(snapsho.child("idUsuario").getValue().toString(),
+                                    snapsho.child("fecha").getValue().toString(),
+                                    snapsho.child("descripcion").getValue().toString(),
+                                    snapsho.child("cantidadImg").getValue().toString(),
+                                    R.drawable.ic_baseline_person_24_gris,
+                                    snapsho.child("tipo").getValue().toString(),
+                                    snapsho.child("idReporte").getValue().toString(),
+                                    snapsho.child("anonimo").getValue().toString(),
+                                    new ArrayList()));
+                        }
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.w(TAG, "Error al buscar reportes", error.toException());
             }
         });
         databaseReference.child("Usuario/").addValueEventListener(new ValueEventListener() {

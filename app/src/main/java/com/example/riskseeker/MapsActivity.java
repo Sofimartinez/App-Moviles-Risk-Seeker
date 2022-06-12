@@ -38,7 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private UiSettings mUiSettings;
     private Marker marcador;
     public LocationManager locationManager;
+    DatabaseReference mDatabase;
     public String provider;
     double latitud;
     double longitud;
@@ -175,9 +175,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        if(marker.equals(marcador)){
-            Intent cargar_reportes = new Intent(getApplicationContext(),ReporteActivity.class);
-            startActivity(cargar_reportes);
+        if(!marker.equals(marcador)) {
+            String idReporte = String.valueOf(marker.getTag());
+            mDatabase.child("Reporte").child(idReporte).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Intent cargar_reportes = new Intent(getApplicationContext(), ReporteActivity.class);
+                        cargar_reportes.putExtra("idReporte", snapshot.child("idReporte").getValue().toString());
+                        cargar_reportes.putExtra("latitud", (Double) snapshot.child("latitud").getValue());
+                        cargar_reportes.putExtra("longitud", (Double) snapshot.child("longitud").getValue());
+                        startActivity(cargar_reportes);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e(TAG, "Error al leer los datos", error.toException());
+                }
+            });
         }
         return false;
     }
@@ -200,7 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         String TAG = "readData";
         // Referencia a reportes
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = mDatabase.child("Reporte");
         // TODO: falta agregar un geohash para traer de firebase solo los reportes mas cercanos a x radio https://firebaseopensource.com/projects/firebase/geofire-android/
         // Por ahora la query trae todos los reportes
@@ -214,6 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     String type = ds.child("tipo").getValue(String.class);
                     Double lat = ds.child("latitud").getValue(Double.class);
                     Double lon = ds.child("longitud").getValue(Double.class);
+                    String idReporte = ds.child("idReporte").getValue(String.class);
 
                     reports.add(new LatLng(lat, lon));
 
@@ -223,49 +240,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    .setTag(idReporte);
                             break;
                         case "Actividad sospechosa":
-                            map.addMarker(new MarkerOptions()
+                            map.addMarker( new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
+                                    .setTag(idReporte);
+
                             break;
                         case "Asalto":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                                    .setTag(idReporte);
                             break;
                         case "Acoso":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)))
+                                    .setTag(idReporte);
                             break;
                         case "Secuestro":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                                    .snippet("and snippet")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+                                    .setTag(idReporte);
+
                             break;
                         case "Tráfico de drogas":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                                    .setTag(idReporte);
                             break;
                         case "Tráfico de armas":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                                    .setTag(idReporte);
                             break;
                         case "disturbios":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    .setTag(idReporte);
                             break;
                     }
                 }
