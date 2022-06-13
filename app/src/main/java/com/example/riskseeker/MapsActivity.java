@@ -7,14 +7,21 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.riskseeker.databinding.ActivityMapsBinding;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -31,6 +38,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +46,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +64,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double longitud;
     private FloatingActionButton perfil, reporte;
 
+    EditText address;
+    ImageButton lupa;
+    TextInputLayout Inputbusqueda;
+
     private static final String TAG = "MapActivity";
 
     @Override
@@ -68,6 +81,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Boolean isInvitado = getIntent().getExtras().getBoolean("invitado");
         perfil = findViewById(R.id.perfil);
         reporte = findViewById(R.id.reporte);
+
+        address = (EditText) findViewById(R.id.busqueda);
+        lupa = (ImageButton) findViewById(R.id.busquedaBoton);
+        Inputbusqueda = (TextInputLayout) findViewById(R.id.busquedaInput);
 
         if(isInvitado){
             perfil.setVisibility(View.INVISIBLE);
@@ -315,5 +332,67 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.w(TAG, "Error al leer los datos", error.toException());
             }
         });
+    }
+    public void buscarCalle(View view) {
+        // Se usa para cerrar el teclado.
+        InputMethodManager imm =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        EditText direccionEditText = (EditText) findViewById(R.id.busqueda);
+        String direccion = direccionEditText.getText().toString();
+
+        List<Address> direccionList = null;
+        MarkerOptions opcionesDeDirecciones = new MarkerOptions();
+
+        if (!TextUtils.isEmpty(direccion)){
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                direccionList = geocoder.getFromLocationName(direccion,6);
+
+                if (direccionList != null){
+                    for (int i=0; i< direccionList.size();i++){
+                        Address direccionUsuario = direccionList.get(i);
+                        LatLng latLng = new LatLng(direccionUsuario.getLatitude(), direccionUsuario.getLongitude());
+
+                        opcionesDeDirecciones.position(latLng);
+                        opcionesDeDirecciones.title(direccion);
+                        opcionesDeDirecciones.icon(BitmapDescriptorFactory.
+                                defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                        map.addMarker(opcionesDeDirecciones);
+                        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(17));
+
+                        // Se usa para cerrar el teclado.
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                    }
+                } else
+                {
+                    Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            Toast.makeText(this, "Escriba una dirección", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    public void activarBuscar(View view) {
+
+        if(address.getVisibility() == View.GONE){
+            address.setVisibility(View.VISIBLE);
+            lupa.setVisibility(View.VISIBLE);
+            Inputbusqueda.setVisibility(View.VISIBLE);
+        }
+        else {
+            address.setVisibility(View.GONE);
+            lupa.setVisibility(View.GONE);
+            Inputbusqueda.setVisibility(View.GONE);
+        }
     }
 }
