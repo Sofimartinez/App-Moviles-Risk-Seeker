@@ -108,4 +108,20 @@
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/ic_baseline_close_24"
+        android:tintMode="@android:color/white"
+        android:onClick="activarBuscar"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:backgroundTint="@color/primario" />
+
+
 </RelativeLayout>

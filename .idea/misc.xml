@@ -19,6 +19,7 @@
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_baseline_add_photo_alternate_24.xml" value="0.1245" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.166" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_baseline_campaign_24.xml" value="0.1975" />
+        <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.139" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.204" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.204" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
@@ -32,7 +33,7 @@
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.264" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_inicio.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_maps.xml" value="0.16" />
+        <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_maps.xml" value="0.2" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_opcion_mapa.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_perfil.xml" value="0.264" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/layout/activity_prueba.xml" value="0.25416666666666665" />
@@ -51,7 +52,6 @@
         <entry key="..\:/Users/tigre/Desktop/App-Moviles-Risk-Seeker-master/app/src/main/res/layout/activity_formulario_reporte.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/tigre/Desktop/App-Moviles-Risk-Seeker-master/app/src/main/res/layout/activity_reporte.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/tigre/Desktop/App-Moviles-Risk-Seeker-master/app/src/main/res/layout/item_reporte.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/tigre/Desktop/aaa/App-Moviles-Risk-Seeker-Image/app/src/main/res/layout/activity_maps.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/tigre/Desktop/app/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_formulario_reporte.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/tigre/Desktop/app/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/tigre/Desktop/app/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />

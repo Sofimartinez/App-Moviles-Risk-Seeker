@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.riskseeker.databinding.ActivityMapsBinding;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -63,6 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double latitud;
     double longitud;
     private FloatingActionButton perfil, reporte;
+    private FloatingActionsMenu menu_fab;
+    private com.google.android.material.floatingactionbutton.FloatingActionButton cancelar;
 
     EditText address;
     ImageButton lupa;
@@ -85,6 +88,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         address = (EditText) findViewById(R.id.busqueda);
         lupa = (ImageButton) findViewById(R.id.busquedaBoton);
         Inputbusqueda = (TextInputLayout) findViewById(R.id.busquedaInput);
+        menu_fab = findViewById(R.id.menu_fab);
+        cancelar = findViewById(R.id.cancelar);
+
+        cancelar.setVisibility(View.INVISIBLE);
 
         if(isInvitado){
             perfil.setVisibility(View.INVISIBLE);
@@ -225,6 +232,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(cargarPerfil);
     }
 
+    public void activarBuscar(View view) {
+        if(address.getVisibility() == View.GONE){
+            address.setVisibility(View.VISIBLE);
+            lupa.setVisibility(View.VISIBLE);
+            Inputbusqueda.setVisibility(View.VISIBLE);
+            map.clear();
+            menu_fab.collapse();
+            menu_fab.setVisibility(View.GONE);
+            cancelar.setVisibility(View.VISIBLE);
+        }
+        else {
+            address.setVisibility(View.GONE);
+            lupa.setVisibility(View.GONE);
+            Inputbusqueda.setVisibility(View.GONE);
+            onMapReady(map);
+            menu_fab.setVisibility(View.VISIBLE);
+            cancelar.setVisibility(View.GONE);
+        }
+
+    }
+
     //Heatmap
     private void heatMap(GoogleMap googleMap) {
         map = googleMap;
@@ -335,8 +363,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void buscarCalle(View view) {
         // Se usa para cerrar el teclado.
-        InputMethodManager imm =
-                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         EditText direccionEditText = (EditText) findViewById(R.id.busqueda);
         String direccion = direccionEditText.getText().toString();
@@ -360,7 +387,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                         map.addMarker(opcionesDeDirecciones);
                         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                        map.animateCamera(CameraUpdateFactory.zoomTo(17));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+                        heatMap(map);
 
                         // Se usa para cerrar el teclado.
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -379,20 +408,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             Toast.makeText(this, "Escriba una dirección", Toast.LENGTH_SHORT).show();
 
-        }
-    }
-
-    public void activarBuscar(View view) {
-
-        if(address.getVisibility() == View.GONE){
-            address.setVisibility(View.VISIBLE);
-            lupa.setVisibility(View.VISIBLE);
-            Inputbusqueda.setVisibility(View.VISIBLE);
-        }
-        else {
-            address.setVisibility(View.GONE);
-            lupa.setVisibility(View.GONE);
-            Inputbusqueda.setVisibility(View.GONE);
         }
     }
 }
