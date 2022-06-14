@@ -15,6 +15,50 @@
         map:cameraZoom="13"
         map:uiRotateGestures="true"
         tools:context=".MapsActivity" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/busquedaInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/Escribir_direccion"
+            app:boxBackgroundColor="@color/mainbackground"
+            app:endIconMode="clear_text"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/busqueda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageButton
+            android:id="@+id/busquedaBoton"
+            android:layout_width="100dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="6.5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@color/primario"
+            android:onClick="buscarCalle"
+            android:src="@drawable/ic_baseline_search_24"
+            android:visibility="gone"
+            />
+
+
+    </LinearLayout>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/menu_fab"
@@ -55,6 +99,7 @@
             android:id="@+id/buscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="activarBuscar"
             app:fab_colorDisabled="@color/primario_oscuro"
             app:fab_colorNormal="@color/primario"
             app:fab_colorPressed="@color/primario_oscuro"

@@ -54,4 +54,5 @@
     <string name="reporte_no_anonimo">Este reporte no es anónimo</string>
     <string name="reporte_si_anonimo">Este reporte es anónimo</string>
     <string name="reportes_cercanos">Reportes cercanos</string>
+    <string name="Escribir_direccion">Buscar una dirección</string>
 </resources>
