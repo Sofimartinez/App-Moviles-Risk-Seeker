@@ -29,7 +29,7 @@ import com.google.firebase.storage.FirebaseStorage;
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISO_UBICACION = 1;
-    Button usuario,invitado;
+    Button usuario, invitado, inicio_sesion, registro;
     private Boolean isInvitado = true;
 
     @Override
@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
         usuario = findViewById(R.id.usuario);
         invitado = findViewById(R.id.invitado);
+        inicio_sesion = findViewById(R.id.inicio_sesion);
+        registro = findViewById(R.id.registro);
+
         if(isInvitado){
             usuario.setVisibility(View.INVISIBLE);
             invitado.setVisibility(View.VISIBLE);
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             usuario.setVisibility(View.VISIBLE);
             usuario.setText(getIntent().getExtras().getString("nombre"));
             invitado.setVisibility(View.INVISIBLE);
+            inicio_sesion.setVisibility(View.INVISIBLE);
+            registro.setVisibility(View.INVISIBLE);
         }
     }
 
