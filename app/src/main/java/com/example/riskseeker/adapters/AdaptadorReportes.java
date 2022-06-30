@@ -1,27 +1,25 @@
 package com.example.riskseeker.adapters;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.annotation.SuppressLint;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.riskseeker.R;
 import com.example.riskseeker.models.Reporte;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import java.util.ArrayList;
 
@@ -108,8 +106,7 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
 
         //Se crea una instancia del adaptador
         AdaptadorImagenes adapter = new AdaptadorImagenes(listaReportes.get(position).getListaImagenes());
-        holder.recyclerImagenes.setAdapter(adapter);
-
+        holder.viewPager.setAdapter(adapter);
     }
 
     //Retorna el tamaño de la lista que se le entrega
@@ -124,7 +121,7 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
         TextView nombre,fecha,tipo,reporte;
         ImageView foto_perfil,foto;
         CardView cardView;
-        RecyclerView recyclerImagenes;
+        ViewPager2 viewPager;
         TextView reportes_cerca;
 
         public ViewHolderReportes(View itemView) {
@@ -137,10 +134,7 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
             foto_perfil = itemView.findViewById(R.id.idImagenPerfil);
             cardView = itemView.findViewById(R.id.card_view);
             reportes_cerca = itemView.findViewById(R.id.reportes_cercano);
-            recyclerImagenes = itemView.findViewById(R.id.imagenes_reporte);
-
-            //Lista de tipo horizontal
-            recyclerImagenes.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
+            viewPager = itemView.findViewById(R.id.pager);
         }
     }
 }

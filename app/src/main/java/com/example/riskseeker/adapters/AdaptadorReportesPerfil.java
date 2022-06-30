@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.riskseeker.R;
 import com.example.riskseeker.models.ReportePerfil;
@@ -51,7 +52,7 @@ public class AdaptadorReportesPerfil extends RecyclerView.Adapter<AdaptadorRepor
 
         //Se crea una instancia del adaptador
         AdaptadorImagenes adapter = new AdaptadorImagenes(listaReportes.get(position).getListaImagenes());
-        holder.recyclerImagenes.setAdapter(adapter);
+        holder.viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class AdaptadorReportesPerfil extends RecyclerView.Adapter<AdaptadorRepor
     public class ViewHolderReportesPerfil extends RecyclerView.ViewHolder {
 
         TextView anonimo,fecha,tipo,reporte,ubicacion;
-        RecyclerView recyclerImagenes;
+        ViewPager2 viewPager;
 
         public ViewHolderReportesPerfil(@NonNull View itemView) {
             super(itemView);
@@ -71,10 +72,7 @@ public class AdaptadorReportesPerfil extends RecyclerView.Adapter<AdaptadorRepor
             tipo = itemView.findViewById(R.id.tipoReporte_perfil);
             reporte = itemView.findViewById(R.id.reporte_perfil);
             ubicacion = itemView.findViewById(R.id.ubicacion_perfil);
-            recyclerImagenes = itemView.findViewById(R.id.imagenes_reporte_perfil);
-
-            //Lista de tipo horizontal
-            recyclerImagenes.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
+            viewPager = itemView.findViewById(R.id.imagenes_reporte_perfil);
 
         }
     }
