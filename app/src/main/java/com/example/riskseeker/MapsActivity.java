@@ -246,6 +246,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             address.setVisibility(View.GONE);
             lupa.setVisibility(View.GONE);
             Inputbusqueda.setVisibility(View.GONE);
+            map.clear();
             onMapReady(map);
             menu_fab.setVisibility(View.VISIBLE);
             cancelar.setVisibility(View.GONE);
@@ -376,7 +377,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             try {
                 direccionList = geocoder.getFromLocationName(direccion,6);
 
-                if (direccionList != null){
+                if (!direccionList.isEmpty()){
                     for (int i=0; i< direccionList.size();i++){
                         Address direccionUsuario = direccionList.get(i);
                         LatLng latLng = new LatLng(direccionUsuario.getLatitude(), direccionUsuario.getLongitude());
