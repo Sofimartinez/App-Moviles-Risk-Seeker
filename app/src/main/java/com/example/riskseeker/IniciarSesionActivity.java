@@ -101,4 +101,6 @@ public class IniciarSesionActivity extends AppCompatActivity {
 
     }
 
+    public static class confirmMap {
+    }
 }
