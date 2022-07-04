@@ -333,7 +333,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
                                     .setTag(idReporte);
                             break;
-                        case "disturbios":
+                        case "Disturbios":
                             map.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat, lon))
                                     .title(type)
