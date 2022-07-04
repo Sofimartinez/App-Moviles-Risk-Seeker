@@ -86,28 +86,52 @@
                     android:id="@+id/confirmationMap"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_margin="5sp"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
-                    android:layout_marginBottom="10sp"
-                    android:visibility="gone"/>
+                    android:layout_marginStart="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginEnd="5sp"
+                    android:layout_marginBottom="5sp"
+                    android:visibility="gone"
+                    />
+                //android:visibility="gone"
             </RelativeLayout>
 
 
-            <Button
-                android:id="@+id/idCerMap"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:onClick="CerrarMap"
-                android:text="Cerrar Mapa"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:fontFamily="sans-serif"
                 android:layout_gravity="center"
-                android:visibility="gone"/>
+                android:layout_margin="10dp">
 
+                <Button
+                    android:id="@+id/refresh"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:onClick="RefreshMap"
+
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_baseline_search_24" />
+
+                <Button
+                    android:id="@+id/idCerMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+
+                    android:layout_weight="1"
+
+                    android:fontFamily="sans-serif"
+                    android:onClick="CerrarMap"
+                    android:text="Cerrar Mapa"
+
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+
+                    android:visibility="gone"/>
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

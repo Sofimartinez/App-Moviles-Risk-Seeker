@@ -74,7 +74,7 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
     private int posicion;
     private int contadorImg = 0;
 
-    private Button openMap, closeMap;
+    private Button openMap, closeMap, refreshMap;
     private View imagens;
     private MapView mapView;
 
@@ -123,6 +123,7 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
         mapView = findViewById(R.id.confirmationMap);
         openMap = findViewById(R.id.idConfirmMap);
         closeMap = findViewById(R.id.idCerMap);
+        refreshMap = findViewById(R.id.refresh);
 
 
         mapView.getMapAsync(this);
@@ -155,10 +156,14 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
     }
 
     public void CargarImagenes(View view) {
-
         imagens = findViewById(R.id.imagesLayout);
-        imagens.setVisibility(View.VISIBLE);
-
+        if(contadorImg != 0){
+            imagens.setVisibility(View.VISIBLE);
+            imagens.animate()
+                    .alpha(1.0f)
+                    .setDuration(600)
+                    .setListener(null);
+        }
         if (contadorImg < 5) {
             Intent selec_imagen = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             selec_imagen.setType("image/");
@@ -173,15 +178,18 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
     protected void onActivityResult(int resquestCode, int resultCode, Intent data) {
         super.onActivityResult(resquestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            imagens = findViewById(R.id.imagesLayout);
+            imagens.setVisibility(View.VISIBLE);
             imagenUri = data.getData();
             listaimagenes.add(imagenUri);
+            //Agregar primera imagen por defecto al ImageSwitcher
+            botonSig.setVisibility(View.VISIBLE);
+            botonAnt.setVisibility(View.VISIBLE);
+            imagenIS.setImageURI(listaimagenes.get(0));
+            contadorImg++;
+            posicion = 0;
         }
-        //Agregar primera imagen por defecto al ImageSwitcher
-        botonSig.setVisibility(View.VISIBLE);
-        botonAnt.setVisibility(View.VISIBLE);
-        imagenIS.setImageURI(listaimagenes.get(0));
-        contadorImg++;
-        posicion = 0;
+
     }
 
     private void confImageSwitcher() {
@@ -226,7 +234,7 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
             try {
                 addressList = geocoder.getFromLocationName(ubicacion.getText().toString(), 1);
 
-                if (addressList != null) {
+                if (!addressList.isEmpty()) {
                     double doublelat = addressList.get(0).getLatitude();
                     double doublelong = addressList.get(0).getLongitude();
 
@@ -338,15 +346,21 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
 
         mapView.setVisibility(View.VISIBLE);
         closeMap.setVisibility(View.VISIBLE);
+        refreshMap.setVisibility(View.VISIBLE);
 
         mapView.setAlpha(0.0f);
         closeMap.setAlpha(0.0f);
+        refreshMap.setAlpha(0.0f);
 
         mapView.animate()
                 .alpha(1.0f)
                 .setDuration(animationDuration)
                 .setListener(null);
         closeMap.animate()
+                .alpha(1.0f)
+                .setDuration(animationDuration)
+                .setListener(null);
+        refreshMap.animate()
                 .alpha(1.0f)
                 .setDuration(animationDuration)
                 .setListener(null);
@@ -373,8 +387,18 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
                 .setDuration(animationDuration)
                 .setListener(null);
 
+        refreshMap.animate()
+                .alpha(1.0f)
+                .setDuration(animationDuration)
+                .setListener(null);
+
         mapView.setVisibility(View.GONE);
         closeMap.setVisibility(View.GONE);
+        refreshMap.setVisibility(View.GONE);
+    }
+
+    public  void RefreshMap(View view){
+        openMap.callOnClick();
     }
 
     public void buscarUbicacion(){
@@ -386,7 +410,7 @@ public class FormularioReporteActivity extends AppCompatActivity implements OnMa
             List<Address> addressList;
             try {
                 addressList = geocoder.getFromLocationName(ubicacion.getText().toString(), 6);
-                if (addressList != null) {
+                if (!addressList.isEmpty()) {
 
                     confirmLatitud = addressList.get(0).getLatitude();
                     confirmLongitud = addressList.get(0).getLongitude();
