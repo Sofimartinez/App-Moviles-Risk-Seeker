@@ -264,6 +264,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             address.setVisibility(View.GONE);
             lupa.setVisibility(View.GONE);
             Inputbusqueda.setVisibility(View.GONE);
+            map.clear();
             onMapReady(map);
             menu_fab.setVisibility(View.VISIBLE);
             cancelar.setVisibility(View.GONE);
@@ -296,70 +297,70 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Double lon = ds.child("longitud").getValue(Double.class);
                     String idReporte = ds.child("idReporte").getValue(String.class);
 
-                        reports.add(new LatLng(lat, lon));
+                    reports.add(new LatLng(lat, lon));
 
-                        //Añadir Marcadores
-                        switch (type) {
-                            case "Hurto":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                                        .setTag(idReporte);
-                                break;
-                            case "Actividad sospechosa":
-                                map.addMarker( new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
-                                        .setTag(idReporte);
+                    //Añadir Marcadores
+                    switch (type) {
+                        case "Hurto":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    .setTag(idReporte);
+                            break;
+                        case "Actividad sospechosa":
+                            map.addMarker( new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
+                                    .setTag(idReporte);
 
-                                break;
-                            case "Asalto":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
-                                        .setTag(idReporte);
-                                break;
-                            case "Acoso":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)))
-                                        .setTag(idReporte);
-                                break;
-                            case "Secuestro":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .snippet("and snippet")
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
-                                        .setTag(idReporte);
+                            break;
+                        case "Asalto":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                                    .setTag(idReporte);
+                            break;
+                        case "Acoso":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)))
+                                    .setTag(idReporte);
+                            break;
+                        case "Secuestro":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .snippet("and snippet")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+                                    .setTag(idReporte);
 
-                                break;
-                            case "Tráfico de drogas":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-                                        .setTag(idReporte);
-                                break;
-                            case "Tráfico de armas":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-                                        .setTag(idReporte);
-                                break;
-                            case "disturbios":
-                                map.addMarker(new MarkerOptions()
-                                                .position(new LatLng(lat, lon))
-                                                .title(type)
-                                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-                                        .setTag(idReporte);
-                                break;
-                        }
+                            break;
+                        case "Tráfico de drogas":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                                    .setTag(idReporte);
+                            break;
+                        case "Tráfico de armas":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                                    .setTag(idReporte);
+                            break;
+                        case "Disturbios":
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(lat, lon))
+                                    .title(type)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    .setTag(idReporte);
+                            break;
+                    }
                 }
 
                 if(!reports.isEmpty()){
@@ -404,7 +405,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 // Crea el heatmap
                                 HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
                                         .weightedData(reportsNew)
-                                        .radius(25)
+                                        .radius(30)
                                         .opacity(0.9)
                                         .gradient(gradient)
                                         .maxIntensity(25)
@@ -413,10 +414,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 TileOverlay overlay = map.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
                                 map.setOnCameraMoveListener(() -> {
                                     CameraPosition cameraPosition = map.getCameraPosition();
-                                    if(cameraPosition.zoom < 14) {
+                                    if(cameraPosition.zoom < 12) {
                                         provider.setRadius(10);
+                                    }else if(cameraPosition.zoom < 14) {
+                                        provider.setRadius(15);
                                     } else if(cameraPosition.zoom < 16) {
-                                        provider.setRadius(25);
+                                        provider.setRadius(30);
                                     } else if(cameraPosition.zoom >= 16) {
                                         provider.setRadius(50);
                                     }
@@ -455,7 +458,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             try {
                 direccionList = geocoder.getFromLocationName(direccion,6);
 
-                if (direccionList != null){
+                if (!direccionList.isEmpty()){
                     for (int i=0; i< direccionList.size();i++){
                         Address direccionUsuario = direccionList.get(i);
                         LatLng latLng = new LatLng(direccionUsuario.getLatitude(), direccionUsuario.getLongitude());

@@ -4,14 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2595" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/circle.xml" value="0.1875" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1795" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/ic_baseline_add_photo_alternate_24.xml" value="0.1795" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/ic_baseline_navigate_before_24.xml" value="0.2395" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/ic_baseline_navigate_next_24.xml" value="0.2395" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2395" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/drawable/roundedbuttom.xml" value="0.2395" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_formulario_reporte.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_inicio.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_maps.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_perfil.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_registro.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/activity_reporte.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/item_reporte.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/item_reporte_imagen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/layout/item_reporte_perfil.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/franc/Desktop/2022-1/AppMoviles/App-Moviles-Risk-Seeker/app/src/main/res/menu/opciones.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable-anydpi/location_1.xml" value="0.104" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2565" />
         <entry key="..\:/Users/sofia/Downloads/RiskSeeker/app/src/main/res/drawable/add_location-48px.xml" value="0.1" />
