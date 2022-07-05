@@ -2,6 +2,7 @@ package com.example.riskseeker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import android.graphics.drawable.AnimationDrawable;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         isInvitado = getIntent().getExtras().getBoolean("invitado");
 
@@ -49,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             invitado.setVisibility(View.VISIBLE);
         }else{
             usuario.setVisibility(View.VISIBLE);
+
             usuario.setText(getIntent().getExtras().getString("nombre"));
             invitado.setVisibility(View.INVISIBLE);
             inicio_sesion.setVisibility(View.INVISIBLE);

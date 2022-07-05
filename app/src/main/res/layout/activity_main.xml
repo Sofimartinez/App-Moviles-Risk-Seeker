@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/mainbackground">
+    android:id="@+id/layout"
+    android:background="@drawable/gradientlist"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -80,7 +80,7 @@ public class AdaptadorReportes extends RecyclerView.Adapter<AdaptadorReportes.Vi
                     holder.nombre.setTextColor(Color.rgb(255,255,255));
                     holder.fecha.setTextColor(Color.rgb(255,255,255));
                     break;
-                case "disturbios":
+                case "Disturbios":
                     holder.cardView.setCardBackgroundColor(Color.rgb(134,251,134));
                     break;
             }
